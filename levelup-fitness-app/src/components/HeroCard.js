@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-const HeroCard = ({ name, health, maxHealth, attack, defense }) => {
+const HeroCard = ({ hero }) => {
+  // name, health, maxHealth, attack, defense
+  let name = hero.name;
+  let health = hero.health;
+  let maxHealth = hero.maxHealth;
+  let attack = hero.attack;
+  let defense = hero.defense;
+
+  let loggedIn = false;
+
   const [displayedHealth, setDisplayedHealth] = useState(0); // use state for displayed health
   const [displayedAttack, setDisplayedAttack] = useState(0); // use state for displayed attack
   const [displayedDefense, setDisplayedDefense] = useState(0); // use state for displayed defense
@@ -32,25 +41,25 @@ const HeroCard = ({ name, health, maxHealth, attack, defense }) => {
   }, [defense]);
 
   return (
-    <div class="hero-stats-card">
+    <div class="card">
       <h2>{name}</h2>
-
-      <div className="stat-bar">
-        <div
-          className="stat-bar-fill"
-          style={{ width: `${displayedHealth}%`, backgroundColor: `#3bde5a` }}
-        ></div>
-      </div>
       <p>
         Health: {health} / {maxHealth}
       </p>
       <div className="stat-bar">
         <div
           className="stat-bar-fill"
-          style={{ width: `${displayedAttack}%`, backgroundColor: `#f72323` }}
+          style={{ width: `${displayedHealth}%`, backgroundColor: `#3bde5a` }}
         ></div>
       </div>
       <p>Attack: {attack}</p>
+      <div className="stat-bar">
+        <div
+          className="stat-bar-fill"
+          style={{ width: `${displayedAttack}%`, backgroundColor: `#f72323` }}
+        ></div>
+      </div>
+      <p>defense: {defense}</p>
       <div className="stat-bar">
         <div
           className="stat-bar-fill"
@@ -60,7 +69,6 @@ const HeroCard = ({ name, health, maxHealth, attack, defense }) => {
           }}
         ></div>
       </div>
-      <p>defense: {defense}</p>
     </div>
   );
 };
