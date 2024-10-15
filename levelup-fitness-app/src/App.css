@@ -5,6 +5,7 @@
   align-items: center;
   background-color: #333;
   padding: 1rem;
+  height: 10vh;
 }
 
 .navbar-logo h1 {
@@ -30,4 +31,63 @@
 
 .navbar-links a:hover {
   color: #f0a500;
+}
+
+/* CSS for fade transition */
+/* fade.css */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
+
+/* css for pages */
+.page {
+  display: grid;
+  place-items: center;
+  height: 90vh;
+  width: 100%;
+}
+
+.hero-pg-content {
+  display: flex;
+  position: relative;
+  height: 90vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hero-pg-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("http://getdrawings.com/img/superhero-silhouette-images-24.png")
+    center/cover no-repeat;
+  opacity: 0.5; /* Control the opacity of the image */
+  z-index: -1; /* Make sure it stays behind the content */
+}
+
+.hero-stats-card {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.5);
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  background-color: rgb(245, 245, 245, 50%);
+  display: flex;
 }
