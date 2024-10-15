@@ -68,7 +68,7 @@ const Feed = () => {
 
   return (
     <div>
-      <h1>It's time to LevelUp!</h1>
+      <h1 style={{ paddingLeft: "5%" }}>It's time to LevelUp!</h1>
       <div class="page">
         {postList.map((post, index) => (
           <FeedCard postId={index} post={post} />
