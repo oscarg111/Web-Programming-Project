@@ -7,7 +7,13 @@ const HeroPage = () => {
     <div className="page">
       <div class="hero-pg-content">
         <h2>Welcome to the Hero Page</h2>
-        <HeroCard />
+        <HeroCard
+          name={"Jimmy"}
+          health={50}
+          maxHealth={100}
+          attack={10}
+          defense={20}
+        />
       </div>
     </div>
   );
