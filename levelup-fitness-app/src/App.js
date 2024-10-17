@@ -13,7 +13,7 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import HeroPage from "./pages/Hero";
-import logInPage from "./pages/LogIn";
+import LogInPage from "./pages/LogIn";
 const userLoggedIn = false;
 
 const AnimatedRoutes = () => {
@@ -28,7 +28,7 @@ const AnimatedRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<logInPage />} />
+          <Route path="/login" element={<LogInPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
