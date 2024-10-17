@@ -13,6 +13,8 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import HeroPage from "./pages/Hero";
+import logInPage from "./pages/LogIn";
+const userLoggedIn = false;
 
 const AnimatedRoutes = () => {
   const location = useLocation(); // Call useLocation inside the component
@@ -26,10 +28,14 @@ const AnimatedRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<logInPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/hero" element={<HeroPage />} />
+          <Route
+            path="/hero"
+            element={<HeroPage isLoggedIn={userLoggedIn} />}
+          />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
@@ -40,7 +46,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar isLoggedIn={userLoggedIn} />
         <AnimatedRoutes />
       </div>
     </Router>

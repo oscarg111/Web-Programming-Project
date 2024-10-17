@@ -2,7 +2,7 @@
 import React from "react";
 import HeroCard from "../components/HeroCard";
 
-const HeroPage = () => {
+const HeroPage = ({ isLoggedIn }) => {
   let hero = {
     name: "Jimmy",
     health: 50,
@@ -10,7 +10,7 @@ const HeroPage = () => {
     attack: 10,
     defense: 20,
   };
-  let isLoggedIn = true;
+  // let isLoggedIn = false;
   return isLoggedIn ? (
     <div className="page">
       <div class="hero-pg-content">
