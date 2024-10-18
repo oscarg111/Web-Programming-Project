@@ -1,17 +1,10 @@
 import React from "react";
+import UserLogin from "../components/UserLogin";
 
 let LogInPage = () => {
   return (
     <div class="page">
-      <h1>Login Page</h1>
-      <div class="card">
-        <form>
-          <p>Username:</p>
-          <input />
-          <p>Password:</p>
-          <input />
-        </form>
-      </div>
+      <UserLogin />
     </div>
   );
 };
