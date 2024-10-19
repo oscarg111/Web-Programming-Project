@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const UserLogin = () => {
+const UserSignup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -10,7 +10,7 @@ const UserLogin = () => {
     // make call to backend to log user in
     // fetch(process.env.REACT_APP_URL);
     console.log(username, password);
-    fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+    fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const UserLogin = () => {
 
   return (
     <div class="card">
-      <h1>Login</h1>
+      <h1>SignUp</h1>
       <form onSubmit={handleUserSubmit}>
         <p>Username:</p>
         <input
@@ -44,4 +44,4 @@ const UserLogin = () => {
   );
 };
 
-export default UserLogin;
+export default UserSignup;
