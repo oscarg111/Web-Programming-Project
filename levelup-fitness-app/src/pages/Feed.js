@@ -2,7 +2,7 @@
 import React from "react";
 import FeedCard from "../components/FeedCard";
 
-const Feed = () => {
+const Feed = ({ userLoggedIn }) => {
   let postList = [
     {
       userName: "ogross1",
@@ -70,9 +70,11 @@ const Feed = () => {
     <div>
       <h1 style={{ paddingLeft: "5%" }}>It's time to LevelUp!</h1>
       <div class="page">
-        {postList.map((post, index) => (
-          <FeedCard postId={index} post={post} />
-        ))}
+        {userLoggedIn ? (
+          postList.map((post, index) => <FeedCard postId={index} post={post} />)
+        ) : (
+          <h1>Log In to see feed</h1>
+        )}
       </div>
     </div>
   );

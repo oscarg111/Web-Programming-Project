@@ -8,13 +8,13 @@ import {
 } from "react-router-dom"; // Import routing components
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Feed";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import HeroPage from "./pages/Hero";
 import LogInPage from "./pages/LogIn";
-const userLoggedIn = false;
+import Feed from "./pages/Feed";
+const userLoggedIn = true;
 
 const AnimatedRoutes = () => {
   const location = useLocation(); // Call useLocation inside the component
@@ -27,7 +27,7 @@ const AnimatedRoutes = () => {
         timeout={500} // Duration of the transition in ms
       >
         <Routes location={location}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Feed userLoggedIn={userLoggedIn} />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
