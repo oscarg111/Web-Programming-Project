@@ -10,12 +10,20 @@ const UserSignup = () => {
     // make call to backend to log user in
     // fetch(process.env.REACT_APP_URL);
     console.log(username, password);
+
+    let postBody = {
+      username,
+      password,
+    };
+
+    console.log(JSON.stringify(postBody));
+
     fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify(postBody),
     })
       .then((response) => response.json())
       .then((data) => console.log("Success:", data))
