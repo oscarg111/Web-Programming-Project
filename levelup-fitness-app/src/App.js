@@ -14,7 +14,7 @@ import Contact from "./pages/Contact";
 import HeroPage from "./pages/Hero";
 import LogInPage from "./pages/LogIn";
 import Feed from "./pages/Feed";
-const userLoggedIn = true;
+const userLoggedIn = false;
 
 const AnimatedRoutes = () => {
   const location = useLocation(); // Call useLocation inside the component
