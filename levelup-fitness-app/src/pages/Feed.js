@@ -1,8 +1,10 @@
 // Home.js
-import React from "react";
+import React, { useContext } from "react";
 import FeedCard from "../components/FeedCard";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Feed = ({ userLoggedIn }) => {
+  const { user, logout } = useContext(AuthContext);
   let postList = [
     {
       userName: "ogross1",
@@ -70,7 +72,7 @@ const Feed = ({ userLoggedIn }) => {
     <div>
       <h1 style={{ paddingLeft: "5%" }}>It's time to LevelUp!</h1>
       <div class="page">
-        {userLoggedIn ? (
+        {user ? (
           postList.map((post, index) => <FeedCard postId={index} post={post} />)
         ) : (
           <h1>Log In to see feed</h1>

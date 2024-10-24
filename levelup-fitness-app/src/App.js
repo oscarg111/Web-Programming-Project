@@ -13,7 +13,9 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import HeroPage from "./pages/Hero";
 import LogInPage from "./pages/LogIn";
+import SignUpPage from "./pages/SignUp";
 import Feed from "./pages/Feed";
+import { AuthProvider } from "./contexts/AuthContext";
 const userLoggedIn = false;
 
 const AnimatedRoutes = () => {
@@ -29,13 +31,11 @@ const AnimatedRoutes = () => {
         <Routes location={location}>
           <Route path="/" element={<Feed userLoggedIn={userLoggedIn} />} />
           <Route path="/login" element={<LogInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/hero"
-            element={<HeroPage isLoggedIn={userLoggedIn} />}
-          />
+          <Route path="/hero" element={<HeroPage />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
@@ -44,12 +44,14 @@ const AnimatedRoutes = () => {
 
 const App = () => {
   return (
-    <Router>
-      <div className="App">
-        <Navbar isLoggedIn={userLoggedIn} />
-        <AnimatedRoutes />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <AnimatedRoutes />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 

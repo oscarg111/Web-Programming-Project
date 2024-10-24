@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
 
 const UserLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleUserSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +22,14 @@ const UserLogin = () => {
       body: JSON.stringify({ username, password }),
     })
       .then((response) => response.json())
-      .then((data) => console.log("Success:", data))
+      .then((data) => {
+        console.log("Successful login: ", data);
+        console.log(data.token == 200);
+        if (data.token) {
+          login(data);
+        }
+        navigate("/");
+      })
       .catch((error) => console.error("Error:", error));
   };
 
@@ -38,8 +49,13 @@ const UserLogin = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br></br>
         <button type="submit">LogIn</button>
       </form>
+      <br></br>
+      <p>
+        Don't have an account? <Link to="/signup">Sign Up!</Link>
+      </p>
     </div>
   );
 };

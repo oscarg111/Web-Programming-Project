@@ -1,8 +1,10 @@
 // Home.js
-import React from "react";
+import React, { useContext } from "react";
 import HeroCard from "../components/HeroCard";
+import { AuthContext } from "../contexts/AuthContext";
 
-const HeroPage = ({ isLoggedIn }) => {
+const HeroPage = () => {
+  const { user, logout } = useContext(AuthContext);
   let hero = {
     name: "Jimmy",
     health: 50,
@@ -11,7 +13,7 @@ const HeroPage = ({ isLoggedIn }) => {
     defense: 20,
   };
   // let isLoggedIn = false;
-  return isLoggedIn ? (
+  return user ? (
     <div className="page">
       <div class="hero-pg-content">
         <h2>Welcome to the Hero Page</h2>

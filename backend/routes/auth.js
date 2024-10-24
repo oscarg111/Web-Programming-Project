@@ -18,20 +18,21 @@ router.post("/signup", async (req, res) => {
   if (!username || !password) {
     return res
       .status(400)
-      .json({ message: "username and password are required" });
+      .json({ message: "username and password are required", token: 400 });
   }
 
   // Check if user already exists
   const existingUser = await User.findOne({ username });
   if (existingUser) {
-    return res.status(400).json({ message: "User already exists" });
+    return res.status(400).json({ message: "User already exists", token: 401 });
   }
 
   // Create new user
   try {
     const user = new User({ username, password });
     await user.save();
-    res.status(201).json({ message: "User created" });
+    console.log("Created new user: ", user);
+    res.status(201).json({ message: "User created", token: 200 });
   } catch (error) {
     res
       .status(500)
@@ -47,18 +48,22 @@ router.post("/login", async (req, res) => {
   if (!username || !password) {
     return res
       .status(400)
-      .json({ message: "username and password are required" });
+      .json({ message: "username and password are required", token: 400 });
   }
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({ message: "Invalid username or password" });
+      return res
+        .status(400)
+        .json({ message: "Invalid username or password", token: 402 });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid username or password" });
+      return res
+        .status(400)
+        .json({ message: "Invalid username or password", token: 402 });
     }
 
     // Sign JWT token
