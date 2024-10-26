@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
+import DropdownAlert from "./Alert";
 
 const UserLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showAlert, setShowAlert] = useState(false); // useState for showing alert
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -27,14 +29,18 @@ const UserLogin = () => {
         console.log(data.token == 200);
         if (data.token) {
           login(data);
+          navigate("/");
+          // trigger alert
+        } else {
+          console.log("Handling show alert");
+          setShowAlert(true);
         }
-        navigate("/");
       })
       .catch((error) => console.error("Error:", error));
   };
 
   return (
-    <div class="card">
+    <div className="card">
       <h1>Login</h1>
       <form onSubmit={handleUserSubmit}>
         <p>Username:</p>
@@ -56,6 +62,7 @@ const UserLogin = () => {
       <p>
         Don't have an account? <Link to="/signup">Sign Up!</Link>
       </p>
+      {showAlert && <DropdownAlert message={"Login Failed"} />}
     </div>
   );
 };

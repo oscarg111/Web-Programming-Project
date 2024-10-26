@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 const HeroCard = ({ hero }) => {
   // name, health, maxHealth, attack, defense
@@ -8,12 +8,9 @@ const HeroCard = ({ hero }) => {
   let attack = hero.attack;
   let defense = hero.defense;
 
-  let loggedIn = false;
-
   const [displayedHealth, setDisplayedHealth] = useState(0); // use state for displayed health
   const [displayedAttack, setDisplayedAttack] = useState(0); // use state for displayed attack
   const [displayedDefense, setDisplayedDefense] = useState(0); // use state for displayed defense
-
   const healthPercentage = (health / maxHealth) * 100;
 
   // use effect for health
@@ -42,7 +39,7 @@ const HeroCard = ({ hero }) => {
 
   return (
     <div class="card">
-      <h2>{name}</h2>
+      <h2>{hero ? hero.name : "Loading..."}</h2>
       <p>
         Health: {health} / {maxHealth}
       </p>
