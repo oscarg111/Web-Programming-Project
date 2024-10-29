@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
 import DropdownAlert from "./Alert";
+import "./UserLogin.css";
 
 const UserLogin = () => {
   const [username, setUsername] = useState("");
@@ -40,7 +41,7 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="card">
+    <div className=" login-card">
       <h1>Login</h1>
       <form onSubmit={handleUserSubmit}>
         <p>Username:</p>
@@ -56,12 +57,13 @@ const UserLogin = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br></br>
-        <button type="submit">LogIn</button>
+        <button type="submit">Log In</button>
       </form>
-      <br></br>
-      <p>
-        Don't have an account? <Link to="/signup">Sign Up!</Link>
+      <hr/>
+      <p className="alr-account">
+        Don't have an account?
       </p>
+      <button><Link to="/signup">Sign Up!</Link></button>
       {showAlert && <DropdownAlert message={"Login Failed"} />}
     </div>
   );

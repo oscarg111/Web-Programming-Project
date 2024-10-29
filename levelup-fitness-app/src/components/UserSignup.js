@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import "./UserSignup.css";
 
 const UserSignup = () => {
   const [username, setUsername] = useState("");
@@ -42,7 +43,7 @@ const UserSignup = () => {
   };
 
   return (
-    <div className="card">
+    <div className="signup-card">
       <h1>SignUp</h1>
       <form onSubmit={handleUserSubmit}>
         <p>Username:</p>
@@ -58,12 +59,13 @@ const UserSignup = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br></br>
-        <button type="submit">SignUp</button>
+        <button type="submit">Sign Up</button>
       </form>
-      <br></br>
-      <p>
-        Already have an account? <Link to="/login">Log in!</Link>
+      <hr/>
+      <p className="alr-account">
+        Already have an account?
       </p>
+      <button><Link to="/login">Log In!</Link></button>
     </div>
   );
 };

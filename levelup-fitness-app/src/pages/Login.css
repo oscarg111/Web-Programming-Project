@@ -1,0 +1,8 @@
+.login-page {
+    background-image: linear-gradient(to top,#F03838, transparent);
+    display: grid;
+    place-items: center;
+    height: 90vh;
+    width: 100%;
+    font-family: "Press Start 2P", system-ui;
+}
