@@ -1,9 +1,10 @@
 import React from "react";
 import UserSignup from "../components/UserSignup";
+import "./Signup.css";
 
 let SignUpPage = () => {
   return (
-    <div class="page">
+    <div class="signup-page">
       <UserSignup />
     </div>
   );
