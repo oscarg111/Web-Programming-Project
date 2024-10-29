@@ -8,6 +8,7 @@ import {
 } from "react-router-dom"; // Import routing components
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Navbar from "./components/Navbar";
+import Landing_nav from "./components/Landing_nav"
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
@@ -47,7 +48,7 @@ const App = () => {
     <AuthProvider>
       <Router>
         <div className="App">
-          <Navbar />
+          <Landing_nav />
           <AnimatedRoutes />
         </div>
       </Router>
