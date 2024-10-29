@@ -1,5 +1,5 @@
 // App.js
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,7 +15,7 @@ import HeroPage from "./pages/Hero";
 import LogInPage from "./pages/LogIn";
 import SignUpPage from "./pages/SignUp";
 import Feed from "./pages/Feed";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthContext, AuthProvider } from "./contexts/AuthContext";
 const userLoggedIn = false;
 
 const AnimatedRoutes = () => {
