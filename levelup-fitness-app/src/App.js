@@ -30,7 +30,8 @@ const AnimatedRoutes = () => {
         timeout={500} // Duration of the transition in ms
       >
         <Routes location={location}>
-          <Route path="/" element={<Feed userLoggedIn={userLoggedIn} />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/feed" element={<Feed userLoggedIn={userLoggedIn} />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/about" element={<About />} />
@@ -48,7 +49,6 @@ const App = () => {
     <AuthProvider>
       <Router>
         <div className="App">
-          <LandingPage />
           <AnimatedRoutes />
         </div>
       </Router>

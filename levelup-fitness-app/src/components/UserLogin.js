@@ -57,7 +57,7 @@ const UserLogin = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br></br>
-        <button type="submit">Log npm startIn</button>
+        <button type="submit">Log In</button>
       </form>
       <hr/>
       <p className="alr-account">

@@ -4,6 +4,7 @@ import FeedCard from "../components/FeedCard";
 import { AuthContext } from "../contexts/AuthContext";
 import "./Feed.css";
 import { Link } from 'react-router-dom';
+import Navbar from "../components/Navbar";
 
 const Feed = ({ userLoggedIn }) => {
   const { user, logout } = useContext(AuthContext);
@@ -72,6 +73,7 @@ const Feed = ({ userLoggedIn }) => {
 
   return (
     <div className="Landing-pg">
+      <Navbar />
       <div className="left-column">
         <h1>It's time to LevelUp!</h1>
         {user ? (

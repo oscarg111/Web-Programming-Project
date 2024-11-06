@@ -1,0 +1,76 @@
+.navbar {
+    background: none;
+    background-color: none;
+    position: fixed;
+    display: flex;
+    height:90vh;
+    transition: left 0.5s ease-in-out;
+    z-index: 10;
+    
+}
+.navbar .nav-item{
+    display: none;
+    background: none;
+}
+.navbar.open {
+    transition: left 1s ease-in-out;
+    background: none;
+    width: 100%;
+    height:90vh;
+    background-image: radial-gradient(ellipse at 150px,#F03838, transparent);
+}
+.navbar.open .nav-item {
+    display:flex;
+    background: none;
+    margin-left: 3rem;
+    width: 100%;
+    background: none;
+}
+.fab {
+    position: fixed;
+    background-color:#CACACA;
+    border: none;
+    border-radius: 85%;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+    z-index: 20;
+}
+.fab.open {
+    transform: rotate(90deg);
+}
+.fab:hover {
+    transform: scale(1.1);
+}
+img {
+    height: 35px;
+    width: auto;
+}
+.nav-icon {
+    height: 45px;
+}
+.nav-item {
+    text-align: center;
+    flex: 1;
+}
+.navbar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav-item {
+    padding: 15px;
+    text-align: left;
+}
+.workout-icon {
+    height: 75px;
+}
+.home-icon{
+    transform: translateX(150px);
+}
+.hero-icon {
+    transform: translateX(150px);
+}
