@@ -1,29 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
-.Landing-pg {
-    background-image: linear-gradient(to right,#F03838, transparent);
+.feed-pg {
+    width: 100vw;
     display: flex;
-    height: 90vh;
-    width: 100%;
-    font-family: "Press Start 2P", system-ui;
+    height: 100vh;
 }
-.left-column, .right-column{
-    flex: 1;
+.feed-container {
+    transform: translateX(150px);
+    width: 80vw;
+    margin: 1.5rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
-.left-column {
-    align-items: center;
-}
-.signup-btn {
-    margin: 5rem;
-    padding: 1.5rem;
-    border-radius: 15px;
-    border: none;
-    font-size: large;
-}
-.Landing-pg h1 {
-    font-size: 32px;
+.page-title {
+    align-items: left;
+    width: 100%;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import './herocar.css';
 
 const HeroCard = ({ hero }) => {
   // name, health, maxHealth, attack, defense
@@ -38,7 +39,7 @@ const HeroCard = ({ hero }) => {
   }, [defense]);
 
   return (
-    <div class="card">
+    <div class="hero-card">
       <h2>{hero ? hero.name : "Loading..."}</h2>
       <p>
         Health: {health} / {maxHealth}

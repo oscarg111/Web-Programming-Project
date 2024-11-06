@@ -14,12 +14,10 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleNavbar = () => {
-    setIsOpen(!isOpen);
-  };
+
 
   return (
-    <nav className={`navbar ${isOpen ? 'open' : ''}`}>
+    <nav className={`inapp-navbar ${isOpen ? 'open' : ''}`}>
       <button className="fab" onClick={() => setIsOpen(!isOpen)}>
         <img 
           className="nav-icon" 

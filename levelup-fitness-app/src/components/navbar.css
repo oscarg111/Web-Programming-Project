@@ -1,25 +1,29 @@
-.navbar {
+.inapp-navbar {
     background: none;
     background-color: none;
     position: fixed;
+    height:100vh;
+    width: 5%;
+    padding-left: 3rem;
+    padding-right: 2rem;
     display: flex;
-    height:90vh;
-    transition: left 0.5s ease-in-out;
-    z-index: 10;
-    
+    justify-content: space-between;
+    align-items: center;
 }
-.navbar .nav-item{
+.inapp-navbar .nav-item{
     display: none;
     background: none;
 }
-.navbar.open {
+.inapp-navbar.open {
+    position:fixed;
     transition: left 1s ease-in-out;
     background: none;
     width: 100%;
-    height:90vh;
-    background-image: radial-gradient(ellipse at 150px,#F03838, transparent);
+    height:100vh;
+    z-index: 20;
+    background-image: radial-gradient(ellipse at 0px,#F03838 15%, transparent);
 }
-.navbar.open .nav-item {
+.inapp-navbar.open .nav-item {
     display:flex;
     background: none;
     margin-left: 3rem;
@@ -41,6 +45,8 @@
 }
 .fab.open {
     transform: rotate(90deg);
+    background-color: none;
+    background: none;
 }
 .fab:hover {
     transform: scale(1.1);
@@ -56,6 +62,10 @@ img {
     text-align: center;
     flex: 1;
 }
+.nav-item:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+}
 .navbar-links {
     list-style: none;
     padding: 0;
@@ -69,8 +79,8 @@ img {
     height: 75px;
 }
 .home-icon{
-    transform: translateX(150px);
+    padding-left: 12rem;
 }
 .hero-icon {
-    transform: translateX(150px);
+    padding-left: 12rem;
 }
