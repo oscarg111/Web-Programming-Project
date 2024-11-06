@@ -4,6 +4,7 @@
 :root {
   --orange: #FF8132;
   --red: #F03838;
+  --blue: #A0CBFF;
 }
 /* CSS for fade transition */
 /* fade.css */
@@ -54,45 +55,6 @@
     center/cover no-repeat;
   opacity: 0.5; /* Control the opacity of the image */
   z-index: -1; /* Make sure it stays behind the content */
-}
-
-.card {
-  width: 300px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.5);
-  padding: 0px 10px 0px 10px;
-  border-radius: 10px;
-  background-color: rgb(245, 245, 245, 50%);
-  display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-
-.mostly-full-width {
-  width: 90%;
-}
-
-.stat-bar {
-  width: 100%;
-  height: 20px;
-  background-color: #ddd;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-/* Health bar fill that represents current health */
-.stat-bar-fill {
-  height: 100%;
-  /* background-color: #4caf50; Green color for health */
-  border-radius: 10px 0 0 10px; /* Rounds the left corners */
-  transition: width 0.5s ease-in-out; /* Smooth transition on health change */
-}
-
-.feed-card {
-  border: solid;
-  padding: 0px 10px 0pc 10px;
-  border-radius: 10px;
 }
 
 /* Alert.css */

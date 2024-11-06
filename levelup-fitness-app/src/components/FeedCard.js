@@ -1,8 +1,9 @@
 import React from "react";
+import './feedCard.css';
 
 const FeedCard = ({ post, postId }) => {
   return (
-    <div class="card mostly-full-width">
+    <div className="feed-card">
       <h3>Post {postId}</h3>
       <p>@{post.userName}</p>
       <p>Hero: {post.heroName}</p>

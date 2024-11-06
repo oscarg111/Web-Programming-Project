@@ -5,10 +5,10 @@ import {
   Routes,
   Route,
   useLocation,
-} from "react-router-dom"; // Import routing components
+} from "react-router-dom"; // Import routingcomponents
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Navbar from "./components/Navbar";
-import Landing_nav from "./components/Landing_nav"
+import LandingPage from "./pages/Landing";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
@@ -30,7 +30,8 @@ const AnimatedRoutes = () => {
         timeout={500} // Duration of the transition in ms
       >
         <Routes location={location}>
-          <Route path="/" element={<Feed userLoggedIn={userLoggedIn} />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/feed" element={<Feed userLoggedIn={userLoggedIn} />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/about" element={<About />} />
@@ -48,7 +49,6 @@ const App = () => {
     <AuthProvider>
       <Router>
         <div className="App">
-          <Landing_nav />
           <AnimatedRoutes />
         </div>
       </Router>

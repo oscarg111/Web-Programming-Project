@@ -2,8 +2,9 @@
 import React, { useContext } from "react";
 import FeedCard from "../components/FeedCard";
 import { AuthContext } from "../contexts/AuthContext";
-import "./Feed.css";
 import { Link } from 'react-router-dom';
+import Navbar from "../components/Navbar";
+import './Feed.css';
 
 const Feed = ({ userLoggedIn }) => {
   const { user, logout } = useContext(AuthContext);
@@ -71,19 +72,15 @@ const Feed = ({ userLoggedIn }) => {
   ];
 
   return (
-    <div className="Landing-pg">
-      <div className="left-column">
-        <h1>It's time to LevelUp!</h1>
-        {user ? (
-          postList.map((post, index) => <FeedCard postId={index} post={post} />)
-        ) : (
-          <button className="signup-btn">
-            <Link to="/signup">Get Started Here!</Link>
-          </button>
-        )}
-      </div>
-      <div className="right-column">
-        <img></img>
+    <div className="feed-pg">
+      <Navbar />
+      <div className="feed-container">
+      <h1 className="page-title">feed</h1>
+        <div className="feed-cards">
+          {postList.map((post, index) => (
+            <FeedCard key={index} post={post} />
+          ))}
+        </div>
       </div>
     </div>
   );
