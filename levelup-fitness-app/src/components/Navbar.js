@@ -40,6 +40,9 @@ const Navbar = () => {
         <li className="nav-item contact-icon"> 
           <Link to="/contact">Contact</Link>
         </li>
+        <li className="nav-item about-us">
+          <Link to="/About">About Us</Link>
+        </li>
       </ul>
       )}
     </nav>

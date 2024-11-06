@@ -2,7 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import HeroCard from "../components/HeroCard";
 import { AuthContext } from "../contexts/AuthContext";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"
+import Navbar from '../components/Navbar';
 
 const HeroPage = () => {
   const { user, logout } = useContext(AuthContext);
@@ -41,14 +42,16 @@ const HeroPage = () => {
 
   // let isLoggedIn = false;
   return heroData ? (
-    <div className="page">
+    <div className="hero-page">
+      <Navbar />
       <div class="hero-pg-content">
         <h2>Welcome to the Hero Page</h2>
         <HeroCard hero={heroData} />
       </div>
     </div>
   ) : (
-    <div className="page">
+    <div className="hero-page">
+      <Navbar />
       <div class="hero-pg-content">
         <h2>Log in to see your Hero</h2>
       </div>

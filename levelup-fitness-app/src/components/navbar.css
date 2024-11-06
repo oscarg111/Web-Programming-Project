@@ -74,13 +74,18 @@ img {
 .nav-item {
     padding: 15px;
     text-align: left;
+    align-items: center;
+    justify-content: center;
 }
 .workout-icon {
     height: 75px;
 }
 .home-icon{
-    padding-left: 12rem;
+
 }
 .hero-icon {
-    padding-left: 12rem;
+
+}
+.about-us {
+    
 }

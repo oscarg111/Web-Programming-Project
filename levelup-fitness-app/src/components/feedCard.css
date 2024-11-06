@@ -1,9 +1,59 @@
 .feed-card {
     border: solid;
-    padding: 0px 10px 0pc 10px;
+    padding: 0px 10px 0px 10px;
     border-radius: 10px;
     background-color: var(--blue);
     margin: 2rem;
-    width: 60rem;
+    width: 70rem;
+    height: 25rem;
 }
-      
+.upload-info {
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+.character-column, .workout-column{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.workout-column {
+    background-color: white;
+    border: solid black;
+    border-radius: 15px;
+    margin-right: 1rem;
+    width: 70%;
+    height: 60%;
+    text-align: left;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+}
+.workout-column p {
+    padding-bottom: 15px;
+}
+.character-column {
+    width: 50%;
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+}
+.hero-image {
+    height: 150px;
+    width:150px;
+}
+.card-top {
+    padding: 0.5rem 1rem 0rem 1rem;
+    width: auto;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+.comment-section {
+    margin-top: auto;
+    padding: 0 1rem 6rem 0.5rem;
+}
+.comment-section img {
+    bottom: 0;
+    position: relative;
+}

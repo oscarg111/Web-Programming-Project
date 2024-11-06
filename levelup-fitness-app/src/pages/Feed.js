@@ -5,6 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import './Feed.css';
+import smallKnight from '../assets/small knight.png';
 
 const Feed = ({ userLoggedIn }) => {
   const { user, logout } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Feed = ({ userLoggedIn }) => {
     {
       userName: "ogross1",
       heroName: "Jimmy",
+      heroImg: smallKnight,
       postContent: "This is a test post",
       muscleGroup: "chest and back",
     },
