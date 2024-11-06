@@ -5,7 +5,7 @@ import "../App.css";
 import { AuthContext } from "../contexts/AuthContext";
 import "./LandingNav.css";
 
-const Landing_nav = () => {
+const LandingNav = () => {
   const { user, logout } = useContext(AuthContext);
 
   return (
@@ -31,4 +31,4 @@ const Landing_nav = () => {
   );
 };
 
-export default Landing_nav;
+export default LandingNav;

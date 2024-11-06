@@ -5,10 +5,10 @@ import {
   Routes,
   Route,
   useLocation,
-} from "react-router-dom"; // Import routing components
+} from "react-router-dom"; // Import routingcomponents
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Navbar from "./components/Navbar";
-import Landing_nav from "./components/Landing_nav"
+import LandingPage from "./pages/Landing";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
@@ -48,7 +48,7 @@ const App = () => {
     <AuthProvider>
       <Router>
         <div className="App">
-          <Landing_nav />
+          <LandingPage />
           <AnimatedRoutes />
         </div>
       </Router>
