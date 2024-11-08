@@ -1,3 +1,12 @@
+.hero-container {
+  border: solid;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  background-color: var(--blue);
+  margin: 2rem;
+  width: 70rem;
+  height: 25rem;
+}
 .hero-card {
     width: 300px;
     border-style: solid;

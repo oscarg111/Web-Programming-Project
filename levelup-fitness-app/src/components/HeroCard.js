@@ -39,33 +39,35 @@ const HeroCard = ({ hero }) => {
   }, [defense]);
 
   return (
-    <div class="hero-card">
-      <h2>{hero ? hero.name : "Loading..."}</h2>
-      <p>
-        Health: {health} / {maxHealth}
-      </p>
-      <div className="stat-bar">
-        <div
-          className="stat-bar-fill"
-          style={{ width: `${displayedHealth}%`, backgroundColor: `#3bde5a` }}
-        ></div>
-      </div>
-      <p>Attack: {attack}</p>
-      <div className="stat-bar">
-        <div
-          className="stat-bar-fill"
-          style={{ width: `${displayedAttack}%`, backgroundColor: `#f72323` }}
-        ></div>
-      </div>
-      <p>defense: {defense}</p>
-      <div className="stat-bar">
-        <div
-          className="stat-bar-fill"
-          style={{
-            width: `${displayedDefense}%`,
-            backgroundColor: `#2353d4`,
-          }}
-        ></div>
+    <div className="hero-container">
+      <div class="hero-card">
+        <h2>{hero ? hero.name : "Loading..."}</h2>
+        <p>
+          Health: {health} / {maxHealth}
+        </p>
+        <div className="stat-bar">
+          <div
+            className="stat-bar-fill"
+            style={{ width: `${displayedHealth}%`, backgroundColor: `#3bde5a` }}
+          ></div>
+        </div>
+        <p>Attack: {attack}</p>
+        <div className="stat-bar">
+          <div
+            className="stat-bar-fill"
+            style={{ width: `${displayedAttack}%`, backgroundColor: `#f72323` }}
+          ></div>
+        </div>
+        <p>defense: {defense}</p>
+        <div className="stat-bar">
+          <div
+            className="stat-bar-fill"
+            style={{
+              width: `${displayedDefense}%`,
+              backgroundColor: `#2353d4`,
+            }}
+          ></div>
+        </div>
       </div>
     </div>
   );

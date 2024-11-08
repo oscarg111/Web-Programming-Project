@@ -14,7 +14,7 @@
 }
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 500ms ease-in-out;
 }
 .fade-exit {
   opacity: 1;
@@ -31,18 +31,6 @@
   height: 90vh;
   width: 100%;
   font-family: "Press Start 2P", system-ui;
-}
-
-.hero-pg-content {
-  display: flex;
-  position: relative;
-  height: 90vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .hero-pg-content::before {

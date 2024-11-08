@@ -1,14 +1,22 @@
 // Home.js
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import FeedCard from "../components/FeedCard";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import './Feed.css';
 import smallKnight from '../assets/small knight.png';
+import reportPopup from "../components/Report";
 
 const Feed = ({ userLoggedIn }) => {
+  
   const { user, logout } = useContext(AuthContext);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const togglePopup =() => {
+    setIsPopupOpen(!isPopupOpen);
+  }
+
   let postList = [
     {
       userName: "ogross1",

@@ -1,22 +1,16 @@
 import React, { useState} from "react";
 import reportIcon from '../assets/report.png';
 import commentIcon from '../assets/comment_icon.png';
-import reportPopup from "./report";
+import ReportPopup from "./Report";
 import './feedCard.css';
 
 const FeedCard = ({ post, postId }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const togglePopup =() => {
-    setIsPopupOpen(!isPopupOpen);
-  }
 
   return (
     <div className="feed-card">
       <div className="card-top">
         <p>@{post.userName} uploaded a new workout</p>
-        <button className="report-btn" onClick={togglePopup}><img className="report-icon " src={reportIcon} alt="report button" /></button>
-        {isPopupOpen && <reportPopup onClose={togglePopup} />}
+        <ReportPopup />
       </div>
         <div className="upload-info">
           <div className="character-column">

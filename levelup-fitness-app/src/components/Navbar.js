@@ -12,11 +12,6 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
-  const openHandle = () => {
-    setIsOpen(!isOpen);
-    console.log("Clicked", !isOpen);
-  };
-
   return (
     <nav className={`inapp-navbar ${isOpen ? "open" : ""}`}>
       <button className="fab" onClick={openHandle}>
