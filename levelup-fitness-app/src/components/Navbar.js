@@ -14,8 +14,6 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
-
-
   return (
     <nav className={`inapp-navbar ${isOpen ? 'open' : ''}`}>
       <button className="fab" onClick={() => setIsOpen(!isOpen)}>

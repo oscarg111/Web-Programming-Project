@@ -3,9 +3,9 @@
     padding: 0px 10px 0px 10px;
     border-radius: 10px;
     background-color: var(--blue);
-    margin: 2rem;
+    margin-bottom: 4rem;
     width: 70rem;
-    height: 25rem;
+    height: 30rem;
 }
 .upload-info {
     display:flex;
@@ -39,8 +39,8 @@
     align-items: center;
 }
 .hero-image {
-    height: 150px;
-    width:150px;
+    height: 250px;
+    width:250px;
 }
 .card-top {
     padding: 0.5rem 1rem 0rem 1rem;
@@ -56,10 +56,4 @@
 .comment-section img {
     bottom: 0;
     position: relative;
-}
-.report-btn{
-    background: none;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
 }
