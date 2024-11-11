@@ -2,12 +2,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import HeroCard from "../components/HeroCard";
 import { AuthContext } from "../contexts/AuthContext";
-import { jwtDecode } from "jwt-decode"
-import Navbar from '../components/Navbar';
+import { jwtDecode } from "jwt-decode";
+import Navbar from "../components/Navbar";
 
 const HeroPage = () => {
-  const { user, logout } = useContext(AuthContext);
-  const [userData, setUserData] = useState(null);
   const [heroData, setHeroData] = useState(null);
 
   // get user/hero data
@@ -24,7 +22,6 @@ const HeroPage = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
-            setUserData(data);
             setHeroData({
               name: data.username,
               health: 50,

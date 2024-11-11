@@ -1,93 +1,62 @@
 // Home.js
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import FeedCard from "../components/FeedCard";
 import { AuthContext } from "../contexts/AuthContext";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import './Feed.css';
-import smallKnight from '../assets/small knight.png';
-import reportPopup from "../components/Report";
+import "./Feed.css";
+import smallKnight from "../assets/small knight.png";
+import ReportPopup from "../components/report";
 
 const Feed = ({ userLoggedIn }) => {
-  
   const { user, logout } = useContext(AuthContext);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const togglePopup =() => {
+  const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
-  }
+  };
 
-  let postList = [
-    {
-      userName: "ogross1",
-      heroName: "Jimmy",
-      heroImg: smallKnight,
-      postContent: "This is a test post",
-      muscleGroup: "chest and back",
-    },
-    {
-      userName: "jdoe22",
-      heroName: "Iron John",
-      postContent: "Had a great leg day!",
-      muscleGroup: "legs",
-    },
-    {
-      userName: "marySmith33",
-      heroName: "Lightning Lass",
-      postContent: "Crushed some upper body exercises!",
-      muscleGroup: "arms and shoulders",
-    },
-    {
-      userName: "superman4",
-      heroName: "Kal El",
-      postContent: "Flew through my cardio session today.",
-      muscleGroup: "cardio",
-    },
-    {
-      userName: "wonderwoman5",
-      heroName: "Diana Prince",
-      postContent: "Focused on core strength today!",
-      muscleGroup: "core",
-    },
-    {
-      userName: "batman6",
-      heroName: "Dark Knight",
-      postContent: "Worked on endurance and agility.",
-      muscleGroup: "full body",
-    },
-    {
-      userName: "captainAmerica7",
-      heroName: "Cap",
-      postContent: "Crushed another back workout!",
-      muscleGroup: "back",
-    },
-    {
-      userName: "flash8",
-      heroName: "Scarlet Speedster",
-      postContent: "Ran some intense sprints today.",
-      muscleGroup: "legs and cardio",
-    },
-    {
-      userName: "thor9",
-      heroName: "God of Thunder",
-      postContent: "Lifted heavy weights today!",
-      muscleGroup: "arms and chest",
-    },
-    {
-      userName: "blackwidow10",
-      heroName: "Natasha Romanoff",
-      postContent: "Worked on agility and reflexes.",
-      muscleGroup: "full body",
-    },
-  ];
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL}/auth/posts`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to get posts");
+        }
+
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []); // Add dependency array to avoid multiple calls
+
+  if (loading) return <p>Loading posts...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="feed-pg">
       <Navbar />
       <div className="feed-container">
-      <h1 className="page-title">feed</h1>
+        <h1 className="page-title">feed</h1>
         <div className="feed-cards">
-          {postList.map((post, index) => (
+          {posts.map((post, index) => (
             <FeedCard key={index} post={post} />
           ))}
         </div>

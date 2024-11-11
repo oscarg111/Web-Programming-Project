@@ -30,7 +30,7 @@ const UserLogin = () => {
         console.log(data.token == 200);
         if (data.token) {
           login(data);
-          navigate("/");
+          navigate("/hero");
           // trigger alert
         } else {
           console.log("Handling show alert");
@@ -59,11 +59,11 @@ const UserLogin = () => {
         <br></br>
         <button type="submit">Log In</button>
       </form>
-      <hr/>
-      <p className="alr-account">
-        Don't have an account?
-      </p>
-      <button><Link to="/signup">Sign Up!</Link></button>
+      <hr />
+      <p className="alr-account">Don't have an account?</p>
+      <button>
+        <Link to="/signup">Sign Up!</Link>
+      </button>
       {showAlert && <DropdownAlert message={"Login Failed"} />}
     </div>
   );

@@ -16,6 +16,7 @@ import HeroPage from "./pages/Hero";
 import LogInPage from "./pages/LogIn";
 import SignUpPage from "./pages/SignUp";
 import Feed from "./pages/Feed";
+import CreateWorkout from "./pages/CreateWorkout";
 import { AuthContext, AuthProvider } from "./contexts/AuthContext";
 const userLoggedIn = false;
 
@@ -31,6 +32,7 @@ const AnimatedRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/create-workout" element={<CreateWorkout />} />
           <Route path="/feed" element={<Feed userLoggedIn={userLoggedIn} />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/signup" element={<SignUpPage />} />

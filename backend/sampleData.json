@@ -1,0 +1,56 @@
+[
+    {
+      "userName": "johnDoe",
+      "heroName": "IronWarrior",
+      "postContent": "Just finished an intense workout session. Feeling great!",
+      "workout": [
+        "Bench Press: 4x10",
+        "Pull-Ups: 3x8",
+        "Dumbbell Shoulder Press: 3x12",
+        "Tricep Dips: 4x15"
+      ]
+    },
+    {
+      "userName": "janeSmith",
+      "heroName": "Speedster",
+      "postContent": "Ran 5 miles today, breaking my previous record!",
+      "workout": [
+        "Running: 5 miles",
+        "Cycling: 10 miles",
+        "Sprints: 8x100m"
+      ]
+    },
+    {
+      "userName": "maxPower",
+      "heroName": "MuscleMan",
+      "postContent": "Increased my bench press weight. Time to celebrate gains!",
+      "workout": [
+        "Bench Press: 5x5",
+        "Incline Dumbbell Press: 4x8",
+        "Chest Flyes: 3x12"
+      ]
+    },
+    {
+      "userName": "saraLee",
+      "heroName": "YogaQueen",
+      "postContent": "Had a great yoga session today. Feeling refreshed and flexible.",
+      "workout": [
+        "Sun Salutations: 5 rounds",
+        "Downward Dog: 2 minutes",
+        "Warrior Pose: 3x30s",
+        "Child's Pose: 2 minutes"
+      ]
+    },
+    {
+      "userName": "tomHardy",
+      "heroName": "RockSolid",
+      "postContent": "Completed a brutal leg day workout. Legs are jelly!",
+      "workout": [
+        "Squats: 4x10",
+        "Leg Press: 3x15",
+        "Lunges: 3x12 each leg",
+        "Calf Raises: 4x20"
+      ]
+    }
+  ]
+  

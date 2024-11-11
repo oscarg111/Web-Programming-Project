@@ -37,7 +37,7 @@ const UserSignup = () => {
         if (data.token) {
           login(data);
         }
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -61,11 +61,11 @@ const UserSignup = () => {
         <br></br>
         <button type="submit">Sign Up</button>
       </form>
-      <hr/>
-      <p className="alr-account">
-        Already have an account?
-      </p>
-      <button><Link to="/login">Log In!</Link></button>
+      <hr />
+      <p className="alr-account">Already have an account?</p>
+      <button>
+        <Link to="/login">Log In!</Link>
+      </button>
     </div>
   );
 };

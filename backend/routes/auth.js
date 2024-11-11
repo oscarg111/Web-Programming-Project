@@ -3,6 +3,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Post = require("../models/Post");
 const router = express.Router();
 
 // Secret for JWT
@@ -72,6 +73,32 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// create post
+router.post("/postWorkout", async (req, res) => {
+  console.log(req.body);
+  const { userName, heroName, postContent, workout } = req.body;
+  console.log(userName, heroName, postContent, workout);
+
+  // Basic validation
+  if (!userName || !postContent) {
+    return res
+      .status(400)
+      .json({ message: "username and post content are required" });
+  }
+
+  // Create new workout
+  try {
+    const post = new Post({ userName, heroName, postContent, workout });
+    await post.save();
+    console.log("Created new post: ", post);
+    res.status(201).json({ message: "post created" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error making post", error: error.message });
+  }
+});
+
 router.get("/user", async (req, res) => {
   const userId = req.query.userId;
 
@@ -79,12 +106,21 @@ router.get("/user", async (req, res) => {
     const user = await User.findById(userId).select("username");
     console.log(user, "logging user");
     if (!user) {
-      return res.status(404).json({ message: "User not fount" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: "Error fetching user data" });
+  }
+});
+
+router.get("/posts", async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
