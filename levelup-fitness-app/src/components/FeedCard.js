@@ -3,12 +3,16 @@ import reportIcon from "../assets/report.png";
 import commentIcon from "../assets/comment_icon.png";
 import ReportPopup from "./report";
 import "./feedCard.css";
+import { formatDistanceToNow } from "date-fns";
 
 const FeedCard = ({ post, postId }) => {
   return (
     <div className="feed-card">
       <div className="card-top">
-        <p>@{post.userName} uploaded a new workout</p>
+        <p>
+          @{post.userName} uploaded a new workout{" "}
+          {formatDistanceToNow(new Date(post.createdAt))} ago
+        </p>
         <ReportPopup />
       </div>
       <div className="upload-info">

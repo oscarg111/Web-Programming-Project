@@ -17,6 +17,10 @@ const PostSchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now, // sets default to current date and time
+  },
 });
 
 module.exports = mongoose.model("Post", PostSchema);

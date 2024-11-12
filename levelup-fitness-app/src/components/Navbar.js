@@ -14,11 +14,7 @@ const Navbar = () => {
 
   return (
     <nav className={`inapp-navbar ${isOpen ? "open" : ""}`}>
-<<<<<<< HEAD
       <button className="fab" onClick={() => setIsOpen(!isOpen)}>
-=======
-      <button className="fab" onClick={setIsOpen}>
->>>>>>> 7f464dbe2defcfd7526d24541eab87d26965f55d
         <img
           className="nav-icon"
           src={isOpen ? close_icon : nav_icon} // Change icon based on isOpen state
