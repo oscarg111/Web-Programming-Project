@@ -33,7 +33,7 @@ const UserSignup = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Successful login: ", data);
-        console.log(data.token == 200);
+        console.log(data.token === 200);
         if (data.token) {
           login(data);
         }
