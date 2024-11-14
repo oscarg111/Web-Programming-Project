@@ -99,6 +99,7 @@ router.post("/postWorkout", async (req, res) => {
   }
 });
 
+// get users
 router.get("/user", async (req, res) => {
   const userId = req.query.userId;
 
@@ -115,6 +116,7 @@ router.get("/user", async (req, res) => {
   }
 });
 
+// get all posts
 router.get("/posts", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
