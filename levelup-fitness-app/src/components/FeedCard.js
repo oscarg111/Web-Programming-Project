@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import reportIcon from "../assets/report.png";
 import commentIcon from "../assets/comment_icon.png";
-import ReportPopup from "./Report";
+import ReportPopup from "./report";
 import "./feedCard.css";
 import { formatDistanceToNow } from "date-fns";
 
-const FeedCard = ({ post, postId }) => {
+const FeedCard = ({ post, username }) => {
+  const deletePost = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/auth/post/${post._id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (response.ok) {
+      console.log("Post was deleted");
+    }
+  };
+
   return (
     <div className="feed-card">
       <div className="card-top">
@@ -28,6 +40,14 @@ const FeedCard = ({ post, postId }) => {
               {post.workout.map((exercise) => (
                 <p>{exercise}</p>
               ))}
+            </p>
+            <p>
+              {" "}
+              {username === post.userName ? (
+                <button onClick={deletePost}>Delete Post</button>
+              ) : (
+                <button>Test</button>
+              )}
             </p>
           </div>
         </div>

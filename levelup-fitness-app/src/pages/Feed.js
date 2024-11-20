@@ -1,5 +1,6 @@
 // Home.js
 import React, { useContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 import FeedCard from "../components/FeedCard";
 import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
@@ -13,10 +14,34 @@ const Feed = ({ userLoggedIn }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [username, setUsername] = useState(null);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
+
+  // get user/hero data
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.userId;
+
+        // fetch UID from mongoDB with api call
+        fetch(`${process.env.REACT_APP_API_URL}/auth/user?userId=${userId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Setting user Data");
+            setUsername(data.username);
+          })
+          .catch((error) => console.error("Error fetching user data:", error));
+      } catch (error) {
+        console.error("Invalid token");
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -53,10 +78,10 @@ const Feed = ({ userLoggedIn }) => {
     <div className="feed-pg">
       <Navbar />
       <div className="feed-container">
-        <h1 className="page-title">feed</h1>
+        <h1 className="page-title">feed for {username}</h1>
         <div className="feed-cards">
           {posts.map((post, index) => (
-            <FeedCard key={index} post={post} />
+            <FeedCard key={index} post={post} username={username} />
           ))}
         </div>
       </div>
