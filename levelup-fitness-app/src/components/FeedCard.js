@@ -4,8 +4,13 @@ import commentIcon from "../assets/comment_icon.png";
 import ReportPopup from "./report";
 import "./feedCard.css";
 import { formatDistanceToNow } from "date-fns";
+import DeleteConfirmation from "./DeleteConfirmation";
+import { useNavigate } from "react-router-dom";
+import UpdatePost from "./UpdateWorkout";
 
 const FeedCard = ({ post, username }) => {
+  const navigate = useNavigate();
+
   const deletePost = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/auth/post/${post._id}`,
@@ -16,6 +21,7 @@ const FeedCard = ({ post, username }) => {
     if (response.ok) {
       console.log("Post was deleted");
     }
+    navigate("/feed");
   };
 
   return (
@@ -51,6 +57,9 @@ const FeedCard = ({ post, username }) => {
             </p>
           </div>
         </div>
+        {/* Brandon and ari here are your respective components please work on these */}
+        <DeleteConfirmation />
+        <UpdatePost />
         <div className="comment-section">
           <img src={commentIcon} alt="comment button" />
         </div>
