@@ -1,28 +1,20 @@
 import React, { useState } from "react";
 
 const DeleteConfirmation = ({ onDelete, onCancel }) => {
-  
   const [showConfirmation, setShowConfirmation] = useState(false);
-
-  
   const handleDeleteClick = () => {
     setShowConfirmation(true);
   };
-
-  
   const handleConfirmClick = () => {
     onDelete(); 
     setShowConfirmation(false);
   };
-
-  // Function to handle cancel click
   const handleCancelClick = () => {
     setShowConfirmation(false);
     if (onCancel) {
       onCancel();  
     }
   };
-
   return (
     <div>
       {/* If confirmation is not shown, display delete button */}
