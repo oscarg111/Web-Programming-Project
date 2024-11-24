@@ -12,6 +12,15 @@ const HeroSchema = new mongoose.Schema({
   },
 });
 
+const ExerciseSchema = new mongoose.Schema({
+  exercise: {
+    type: String,
+  },
+  weight: {
+    type: Number,
+  },
+});
+
 const UserStatsSchema = new mongoose.Schema({
   workoutsCompleted: {
     type: Number,
@@ -20,6 +29,10 @@ const UserStatsSchema = new mongoose.Schema({
   totalVolume: {
     type: Number,
     required: true,
+  },
+  lifetimePRs: {
+    type: Map,
+    of: [ExerciseSchema],
   },
 });
 
@@ -38,6 +51,14 @@ const UserSchema = new mongoose.Schema({
   heroes: {
     type: [HeroSchema],
     default: [],
+  },
+  userStats: {
+    type: UserStatsSchema,
+    required: false,
+    default: { workoutsCompleted: 0, totalVolume: 0, lifetimePRs: [] },
+  },
+  lastPosted: {
+    type: Number,
   },
 });
 

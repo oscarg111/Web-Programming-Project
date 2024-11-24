@@ -87,12 +87,24 @@ router.post("/postWorkout", async (req, res) => {
       .json({ message: "username and post content are required" });
   }
 
+  let user = await User.findOne({ username: userName });
+  const today = new Date();
+  const dayIndex = today.getDay();
+
   // Create new workout
   try {
-    const post = new Post({ userName, heroName, postContent, workout });
-    await post.save();
-    console.log("Created new post: ", post);
-    res.status(201).json({ message: "post created" });
+    if (user.lastPosted === dayIndex) {
+      // cant post two workouts in one day
+      console.log("User tried to make two posts");
+      res.status(400).json({ message: "cant make two posts in one day" });
+    } else {
+      const post = new Post({ userName, heroName, postContent, workout });
+      user.lastPosted = dayIndex;
+      await post.save();
+      await user.save();
+      console.log("Created new post: ", post);
+      res.status(201).json({ message: "post created" });
+    }
   } catch (error) {
     res
       .status(500)

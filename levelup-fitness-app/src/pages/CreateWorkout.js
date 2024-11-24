@@ -4,8 +4,10 @@ import { jwtDecode } from "jwt-decode";
 import "./CreateWorkout.css";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const CreateWorkout = () => {
+  const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const [username, setUsername] = useState(null);
   const [heroData, setHeroData] = useState(null);
@@ -124,6 +126,7 @@ const CreateWorkout = () => {
     })
       .then((response) => response.json())
       .catch((error) => console.error("Error:", error));
+    navigate("/feed");
   };
 
   const handleAddExercise = (e) => {

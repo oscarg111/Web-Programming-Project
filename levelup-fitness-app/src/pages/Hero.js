@@ -7,11 +7,14 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import "./HeroPg.css";
 import AddHero from "../components/AddHero";
+import WorkoutStats from "../components/WorkoutStats";
 
 const HeroPage = () => {
   const [heroes, setHeroes] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [addHeroOpen, setAddHeroOpen] = useState(false);
+  const [viewWorkoutStats, setViewWorkoutStats] = useState(false);
+  const [viewHeroes, setViewHeroes] = useState(false);
 
   // get user/hero data
   useEffect(() => {
@@ -47,10 +50,39 @@ const HeroPage = () => {
     <div className="hero-page">
       <Navbar />
       <div class="hero-pg-content">
-        <h2>Welcome to the Hero Page</h2>
-        {heroes.map((hero) => (
-          <HeroCard hero={hero} key={hero._id} />
-        ))}
+        <h2>
+          Welcome to the Hero Page,{" "}
+          {user.username ? user.username : "Loading..."}
+        </h2>
+        <div>
+          <button
+            onClick={() => {
+              setViewHeroes(true);
+              setViewWorkoutStats(false);
+            }}
+          >
+            View Hero Stats
+          </button>
+          <button
+            onClick={() => {
+              setViewHeroes(false);
+              setViewWorkoutStats(true);
+            }}
+          >
+            View Workout Stats
+          </button>
+        </div>
+
+        {viewHeroes &&
+          heroes.map((hero) => <HeroCard hero={hero} key={hero._id} />)}
+
+        {viewWorkoutStats && (
+          <WorkoutStats
+            workoutsCompleted={user.userStats.workoutsCompleted}
+            totalVolume={user.userStats.totalVolume}
+            lifetimePRs={user.userStats.lifetimePRs}
+          />
+        )}
         <button onClick={openAddHero}>Add Hero</button>
         {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
       </div>
