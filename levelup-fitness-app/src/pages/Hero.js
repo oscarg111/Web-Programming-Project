@@ -4,9 +4,14 @@ import HeroCard from "../components/HeroCard";
 import { AuthContext } from "../contexts/AuthContext";
 import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
+import "./HeroPg.css";
+import AddHero from "../components/AddHero";
 
 const HeroPage = () => {
-  const [heroData, setHeroData] = useState(null);
+  const [heroes, setHeroes] = useState([]);
+  const [user, setUser] = useState(null);
+  const [addHeroOpen, setAddHeroOpen] = useState(false);
 
   // get user/hero data
   useEffect(() => {
@@ -21,14 +26,11 @@ const HeroPage = () => {
         fetch(`${process.env.REACT_APP_API_URL}/auth/user?userId=${userId}`)
           .then((response) => response.json())
           .then((data) => {
+            console.log("getting user");
             console.log(data);
-            setHeroData({
-              name: data.username,
-              health: 50,
-              maxHealth: 100,
-              attack: 10,
-              defense: 20,
-            });
+            setHeroes(data.heroes);
+            console.log(heroes);
+            setUser(data);
           })
           .catch((error) => console.error("Error fetching user data:", error));
       } catch (error) {
@@ -37,20 +39,29 @@ const HeroPage = () => {
     }
   }, []);
 
+  const openAddHero = () => setAddHeroOpen(true);
+  const closeAddHero = () => setAddHeroOpen(false);
+
   // let isLoggedIn = false;
-  return heroData ? (
+  return heroes ? (
     <div className="hero-page">
       <Navbar />
       <div class="hero-pg-content">
         <h2>Welcome to the Hero Page</h2>
-        <HeroCard hero={heroData} />
+        {heroes.map((hero) => (
+          <HeroCard hero={hero} key={hero._id} />
+        ))}
+        <button onClick={openAddHero}>Add Hero</button>
+        {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
       </div>
     </div>
   ) : (
     <div className="hero-page">
       <Navbar />
       <div class="hero-pg-content">
-        <h2>Log in to see your Hero</h2>
+        <h2>Add a hero</h2>
+        <button onClick={openAddHero}>Add Hero</button>
+        {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
       </div>
     </div>
   );

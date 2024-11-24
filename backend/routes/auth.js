@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Heroes = require("../models/Heroes");
 const router = express.Router();
 
 // Secret for JWT
@@ -99,12 +100,54 @@ router.post("/postWorkout", async (req, res) => {
   }
 });
 
+// add hero to specific users array
+router.post("/addhero/:id", async (req, res) => {
+  // with the user id, will add the hero in the body
+  // to the user's hero array
+  const id_num = req.params.id;
+  try {
+    const hero = await Heroes.findOne({ name: req.body.name });
+    const user = await User.findOne({ _id: id_num });
+
+    if (!hero || !user) {
+      return res.status(404).json({ message: "Hero or User not found" });
+    }
+
+    let heroExists = user.heroes.some(
+      (_hero) => _hero._id.toString() === hero._id.toString()
+    );
+
+    console.log("Hero Exists: ", heroExists);
+
+    if (!heroExists) {
+      console.log("Adding hero");
+      user.heroes.push(hero);
+      await user.save();
+
+      res.status(200).json({ message: "Hero added successfully" });
+    } else {
+      res.status(400).json({ message: "User already has that hero" });
+    }
+  } catch (error) {
+    console.error("Error adding hero to ");
+  }
+});
+
+router.get("/getheroes", async (req, res) => {
+  try {
+    const heroes = await Heroes.find();
+    res.status(200).json(heroes);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // get users
 router.get("/user", async (req, res) => {
   const userId = req.query.userId;
 
   try {
-    const user = await User.findById(userId).select("username");
+    const user = await User.findById(userId);
     console.log(user, "logging user");
     if (!user) {
       return res.status(404).json({ message: "User not found" });

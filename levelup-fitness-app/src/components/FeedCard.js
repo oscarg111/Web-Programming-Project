@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import reportIcon from "../assets/report.png";
 import commentIcon from "../assets/comment_icon.png";
-import ReportPopup from "./Report";
+import ReportPopup from "./report";
 import "./feedCard.css";
 import { formatDistanceToNow } from "date-fns";
 import DeleteConfirmation from "./DeleteConfirmation";

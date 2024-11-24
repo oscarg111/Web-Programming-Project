@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import './herocar.css';
+import "./herocar.css";
 
 const HeroCard = ({ hero }) => {
   // name, health, maxHealth, attack, defense
   let name = hero.name;
-  let health = hero.health;
-  let maxHealth = hero.maxHealth;
-  let attack = hero.attack;
-  let defense = hero.defense;
+  let health = hero.stats.health;
+  let maxHealth = hero.stats.health;
+  let attack = hero.stats.attack;
+  let defense = hero.stats.defense;
 
   const [displayedHealth, setDisplayedHealth] = useState(0); // use state for displayed health
   const [displayedAttack, setDisplayedAttack] = useState(0); // use state for displayed attack
