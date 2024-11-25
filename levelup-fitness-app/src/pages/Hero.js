@@ -56,43 +56,51 @@ const HeroPage = () => {
   return heroes ? (
     <div className="hero-page">
       <Navbar />
-      <div class="hero-pg-content">
-        <h2>
-          Welcome to the Hero Page,{" "}
-          {user.username ? user.username : "Loading..."}
-        </h2>
-        <div>
-          <button
-            onClick={() => {
-              setViewHeroes(true);
-              setViewWorkoutStats(false);
-            }}
-          >
-            View Hero Stats
-          </button>
-          <button
-            onClick={() => {
-              setViewHeroes(false);
-              setViewWorkoutStats(true);
-            }}
-          >
-            View Workout Stats
-          </button>
-          <button onClick={handleLogout}>LogOut</button>
+      <div class="hero-pg-container">
+        <div className="hero-card">
+          <h2 className="page-title">
+            Welcome to the Hero Page,{" "}
+            {user.username ? user.username : "Loading..."}
+          </h2>
+          <div className="hero-container">
+            <button 
+              className="hero-btns"
+              onClick={() => {
+                setViewHeroes(true);
+                setViewWorkoutStats(false);
+              }}
+            >
+              View Hero Stats
+            </button>
+            <button
+              className="hero-btns"
+              onClick={() => {
+                setViewHeroes(false);
+                setViewWorkoutStats(true);
+              }}
+            >
+              View Workout Stats
+            </button>
+          </div>
+
+          {viewHeroes &&
+            heroes.map((hero) => <HeroCard hero={hero} key={hero._id} />)}
+
+          {viewWorkoutStats && (
+            <WorkoutStats
+              workoutsCompleted={user.userStats.workoutsCompleted}
+              totalVolume={user.userStats.totalVolume}
+              lifetimePRs={user.userStats.lifetimePRs}
+            />
+          )}
+          <button onClick={openAddHero}>Add Hero</button>
+          {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
+          <div className="logout-container">
+            <button className="logout-btn" onClick={handleLogout}>
+              LogOut
+            </button>
+          </div>
         </div>
-
-        {viewHeroes &&
-          heroes.map((hero) => <HeroCard hero={hero} key={hero._id} />)}
-
-        {viewWorkoutStats && (
-          <WorkoutStats
-            workoutsCompleted={user.userStats.workoutsCompleted}
-            totalVolume={user.userStats.totalVolume}
-            lifetimePRs={user.userStats.lifetimePRs}
-          />
-        )}
-        <button onClick={openAddHero}>Add Hero</button>
-        {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
       </div>
     </div>
   ) : (
