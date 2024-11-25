@@ -5,6 +5,7 @@ import "./CreateWorkout.css";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import trashIcon from "../assets/trash-icon.webp";
 
 const CreateWorkout = () => {
   const navigate = useNavigate();
@@ -144,17 +145,19 @@ const CreateWorkout = () => {
     ) {
       setWorkoutList([...workoutList, currentWorkout]);
       setValidSubmission(true);
+      clearForm();
     } else {
       setValidSubmission(false);
     }
   };
-  const form = document.getElementById("create-workout-form");
+
 
   function clearForm(){
-    form.reset();
     setSearchTerm("");
     setExerciseName("");
-    setIsValid(false);
+    setSets("");
+    setReps("");
+    setWeight("");
     setFilteredExercises([]);
   }
   const handleRemoveExercise = (exerciseToRemove) => {
@@ -256,17 +259,20 @@ const CreateWorkout = () => {
                     Please enter a valid submission
                   </p>
                 )}
-              <ul>
-                {workoutList.map((workout, index) => (
-                  <div>
-                    <li key={index}>{workout}</li>
-                    <button onClick={() => handleRemoveExercise(workout)}>-</button>
-                  </div>
-                ))}
-              </ul>
+              
               <button type="submit">Submit</button>
             </form>
           </div>
+          <ul>
+            {workoutList.map((workout, index) => (
+              <div>
+                <li key={index}>{workout}</li>
+                <button className="remove-exercise-button" onClick={() => handleRemoveExercise(workout)}>
+                  <img className="trash-icon" src={trashIcon} alt="trash icon" />
+                </button>
+              </div>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
