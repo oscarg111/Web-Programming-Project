@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AddHero.css";
 import { useNavigate } from "react-router-dom";
+import HeroInput from "./HeroInput";
 
 const AddHero = ({ onClose, id_num }) => {
   const navigate = useNavigate();
@@ -61,9 +62,7 @@ const AddHero = ({ onClose, id_num }) => {
       <div className="popup">
         {heroes.length > 0 &&
           heroes.map((hero) => (
-            <button onClick={addHeroFunc} id={hero.name}>
-              {hero.name}
-            </button>
+            <HeroInput heroName={hero.name} onAddHero={addHeroFunc} />
           ))}
 
         <button className="popup-close-button" onClick={onClose}>

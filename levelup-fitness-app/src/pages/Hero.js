@@ -15,6 +15,8 @@ const HeroPage = () => {
   const [addHeroOpen, setAddHeroOpen] = useState(false);
   const [viewWorkoutStats, setViewWorkoutStats] = useState(false);
   const [viewHeroes, setViewHeroes] = useState(false);
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   // get user/hero data
   useEffect(() => {
@@ -41,6 +43,11 @@ const HeroPage = () => {
       }
     }
   }, []);
+
+  const handleLogout = () => {
+    navigate("/");
+    logout();
+  };
 
   const openAddHero = () => setAddHeroOpen(true);
   const closeAddHero = () => setAddHeroOpen(false);
@@ -71,6 +78,7 @@ const HeroPage = () => {
           >
             View Workout Stats
           </button>
+          <button onClick={handleLogout}>LogOut</button>
         </div>
 
         {viewHeroes &&
