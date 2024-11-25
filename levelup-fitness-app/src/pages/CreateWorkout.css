@@ -1,15 +1,103 @@
 .create-workout-card {
+  border: solid;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  background-color: var(--blue);
+  margin-bottom: 4rem;
+  width: 80rem;
+  height: 50rem;
+  align-items:center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 }
-
-.create-workout-form {
-  border-style: dashed;
+.workout-form-container {
+  /* border: solid; */
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  /*background-color: white; */
+  margin-bottom: 4rem;
+  width: 50rem;
+  height: 30rem;
+}
+.create-workout-container {
+  transform: translateX(150px);
+  width: 80vw;
+  margin: 1.5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
+.create-workout-form {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  align-items: center;
 
-ul {
+}
+.create-workout-page{
+  width: 100vw;
+  display: flex;
+  height: 100vh;
+}
+/*
+input {
+  background-color: var(--grey);
+}
+*/
+.exercise-list {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  background-color: white;
+  padding:1rem;
+  border-radius: 10px;
+  z-index: 100;
+  position: relative;
+  margin-top: -1rem;
 }
+.weight-input {
+  margin: 0;
+  padding: 0;
+}
+.weightform-input {
+  width: 50%;
+  margin-right: 1rem;
+}
+.add-exercise-button {
+  margin:0;
+  margin-left: 1rem;
+}
+.unit-select {
+  width: 70px;
+  height: 25px;
+}
+.workout-description-input {
+  width: 70%;
+}
+.exercise-search-input {
+  width:70%;
+}
+.create-workout-form input {
+  margin-bottom: 2rem;
+}
+.sets-input {
+  width: 40%;
+  display: inline-block;
+}
+.rep-input {
+  width: 40%;
+}
+.sets-rep-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+input[type=number]::-webkit-inner-spin-button {
+  margin-right: 1rem;
+  width: 25px;
+  height: 30px;
+}
+

@@ -101,7 +101,9 @@ const CreateWorkout = () => {
   );
 
   const handleSearch = (e) => {
+    
     const value = e.target.value;
+    setIsListVisible(true);
     setSearchTerm(value);
     setExerciseName(value);
     setIsValid(false);
@@ -127,6 +129,7 @@ const CreateWorkout = () => {
       .then((response) => response.json())
       .catch((error) => console.error("Error:", error));
     navigate("/feed");
+    clearForm();
   };
 
   const handleAddExercise = (e) => {
@@ -145,7 +148,15 @@ const CreateWorkout = () => {
       setValidSubmission(false);
     }
   };
+  const form = document.getElementById("create-workout-form");
 
+  function clearForm(){
+    form.reset();
+    setSearchTerm("");
+    setExerciseName("");
+    setIsValid(false);
+    setFilteredExercises([]);
+  }
   const handleRemoveExercise = (exerciseToRemove) => {
     const updatedExercises = workoutList.filter(
       (workout) => workout !== exerciseToRemove
@@ -159,91 +170,105 @@ const CreateWorkout = () => {
     setValidSubmission(true);
     setFilteredExercises([]); // Clear suggestions
     setIsValid(true); // Mark as valid selection
+    setIsListVisible(false);
   };
 
+  const [isListVisible, setIsListVisible] = useState(false);
+
   return (
-    <div class="create-workout-page">
+    <div className="create-workout-page">
       <Navbar />
-      <div className="create-workout-card">
-        <form onSubmit={handleAddWorkout} className="create-workout-form">
-          <h1>Make a workout for {username ? username : "Loading"}</h1>
-          <p>Workout Description</p>
-          <input
-            id="workoutDescription"
-            onChange={(e) => setDescription(e.target.value)}
-          />{" "}
-          {/*this is for the post content */}
-          <p>Exercise Name:</p>
-          <input
-            type="text"
-            id="exerciseName"
-            placeholder="Search Exercises..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <ul>
-            {filteredExercises.map((exercise, index) => (
-              <li
-                key={index}
-                onClick={() => handleOptionClick(exercise)}
-                style={{ cursor: "pointer" }}
-              >
-                {exercise
-                  .split(new RegExp(`(${searchTerm})`, "i"))
-                  .map((part, i) =>
-                    part.toLowerCase() === searchTerm.toLowerCase() ? (
-                      <span key={i} style={{ fontWeight: "bold" }}>
-                        {part}
-                      </span>
-                    ) : (
-                      part
-                    )
-                  )}
-              </li>
-            ))}
-          </ul>
-          <p>Number of sets:</p>
-          <input
-            id="setCount"
-            type="number"
-            onChange={(e) => setSets(e.target.value)}
-          />
-          <p>Number of reps per set:</p>
-          <input
-            id="repCount"
-            type="number"
-            onChange={(e) => setReps(e.target.value)}
-          />
-          <div>
-            {!validSubmission && (
-              <p style={{ WebkitTextFillColor: "red" }}>
-                Please enter a valid submission
-              </p>
-            )}
-            <p>Weight:</p>
-            <input
-              id="weight"
-              type="number"
-              onChange={(e) => setWeight(e.target.value)}
-            />
-            <select id="units" onChange={(e) => setUnits(e.target.value)}>
-              <option>lbs</option>
-              <option>kgs</option>
-            </select>
-            <button onClick={handleAddExercise}>+</button>
-          </div>
-          <ul>
-            {workoutList.map((workout, index) => (
-              <div>
-                <li key={index}>{workout}</li>
-                <button onClick={() => handleRemoveExercise(workout)}>-</button>
+      <div className="create-workout-container">
+        <div className="create-workout-card">
+          <h1 className="page-title">Make a workout for {username ? username : "Loading..."}</h1>
+          <div className="workout-form-container">
+            <form onSubmit={handleAddWorkout} className="create-workout-form">
+              <input
+                className="workout-description-input"
+                placeholder="Workout Description"
+                id="workoutDescription"
+                onChange={(e) => setDescription(e.target.value)}
+              />{" "}
+              {/*this is for the post content */}
+              <input
+                className="exercise-search-input"
+                type="text"
+                id="exerciseName"
+                placeholder="Search Exercises..."
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+              {isListVisible && (
+                <ul className="exercise-list">
+                  {filteredExercises.map((exercise, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleOptionClick(exercise)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {exercise
+                        .split(new RegExp(`(${searchTerm})`, "i"))
+                        .map((part, i) =>
+                          part.toLowerCase() === searchTerm.toLowerCase() ? (
+                            <span key={i} style={{ fontWeight: "bold" }}>
+                              {part}
+                            </span>
+                          ) : (
+                            part
+                          )
+                        )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="sets-rep-input">
+                <input
+                  className="sets-input"
+                  placeholder="Number of sets"
+                  id="setCount"
+                  type="number"
+                  onChange={(e) => setSets(e.target.value)}
+                />
+                <input
+                  className="rep-input"
+                  placeholder="Number of reps"
+                  id="repCount"
+                  type="number"
+                  onChange={(e) => setReps(e.target.value)}
+                />
               </div>
-            ))}
-          </ul>
-          <button type="submit">Submit</button>
-        </form>
+              <div className="weight-input">
+                <input
+                  className="weightform-input"
+                  placeholder="Weight"
+                  id="weight"
+                  type="number"
+                  onChange={(e) => setWeight(e.target.value)}
+                />
+                <select className="unit-select" id="units" onChange={(e) => setUnits(e.target.value)}>
+                  <option>lbs</option>
+                  <option>kgs</option>
+                </select>
+                <button className="add-exercise-button"onClick={handleAddExercise}>+</button>
+              </div>
+              {!validSubmission && (
+                  <p style={{ WebkitTextFillColor: "red" }}>
+                    Please enter a valid submission
+                  </p>
+                )}
+              <ul>
+                {workoutList.map((workout, index) => (
+                  <div>
+                    <li key={index}>{workout}</li>
+                    <button onClick={() => handleRemoveExercise(workout)}>-</button>
+                  </div>
+                ))}
+              </ul>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
-      {/* <Navbar /> */}
     </div>
   );
 };
