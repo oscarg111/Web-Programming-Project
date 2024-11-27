@@ -1,5 +1,42 @@
-.hero-pg-content {
+.hero-pg-container {
+  transform: translateX(150px);
+  width: 80vw;
+  margin: 1.5rem 2rem 2rem 2rem;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hero-card {
+  border: solid;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+  background-color: var(--blue);
+  width: 80rem;
+  height: 90vh;
+  align-items:center;
+  display: flex;
+  flex-direction: column;
+}
+.page-title {
+  padding-left: 25px;
+}
+.hero-container {
+  border: none;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+}
+.hero-btns {
+  height: 4rem;
+}
+.logout-btn {
+  background-color: var(--red);
+  margin-top: 3rem;
+}
+.logout-container {
+  width: 100%;
+  display: flex;
+  margin-right: 5rem;
+  justify-content: flex-end;
 }

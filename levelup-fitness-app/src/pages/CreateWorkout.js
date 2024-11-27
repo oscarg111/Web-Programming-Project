@@ -5,6 +5,7 @@ import "./CreateWorkout.css";
 import Navbar from "../components/Navbar";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import trashIcon from "../assets/trash-icon.webp";
 
 const CreateWorkout = () => {
   const navigate = useNavigate();
@@ -143,17 +144,19 @@ const CreateWorkout = () => {
     ) {
       setWorkoutList([...workoutList, currentWorkout]);
       setValidSubmission(true);
+      clearForm();
     } else {
       setValidSubmission(false);
     }
   };
-  const form = document.getElementById("create-workout-form");
 
   function clearForm() {
-    // form.reset();
+    form.reset();
     setSearchTerm("");
     setExerciseName("");
-    setIsValid(false);
+    setSets("");
+    setReps("");
+    setWeight("");
     setFilteredExercises([]);
   }
 
