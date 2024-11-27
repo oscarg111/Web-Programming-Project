@@ -6,7 +6,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth"); // routes for api
 
 const app = express();
-const PORT = process.env.PORT || 5000; // port that server runs on
+const PORT = process.env.PORT; // port that server runs on
 const MONGO_URI = process.env.MONGO_URI; // reference to database URI
 
 console.log("hello");

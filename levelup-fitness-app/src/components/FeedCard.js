@@ -7,6 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { useNavigate } from "react-router-dom";
 import UpdatePost from "./UpdateWorkout";
+import hulk from "../assets/hulk.png";
 
 const FeedCard = ({ post, username }) => {
   const navigate = useNavigate();
@@ -31,11 +32,11 @@ const FeedCard = ({ post, username }) => {
           @{post.userName} uploaded a new workout{" "}
           {formatDistanceToNow(new Date(post.createdAt))} ago
         </p>
-        <ReportPopup />
+        {/* <ReportPopup /> */}
       </div>
       <div className="upload-info">
         <div className="character-column">
-          <img className="hero-image" src={post.heroImg} alt="hero image" />
+          <img className="hero-image" src={hulk} alt="hero image" />
         </div>
         <div className="workout-column">
           <div className="workout-info">
@@ -59,7 +60,7 @@ const FeedCard = ({ post, username }) => {
         </div>
         {/* Brandon and ari here are your respective components please work on these */}
         <DeleteConfirmation />
-        <UpdatePost />
+        {/* <UpdatePost /> */}
         <div className="comment-section">
           <img src={commentIcon} alt="comment button" />
         </div>

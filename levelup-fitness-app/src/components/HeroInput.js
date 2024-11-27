@@ -8,7 +8,9 @@ const HeroInput = ({ heroName, onAddHero }) => {
       <br></br>
       <img src={samurai_image} />
       <hr />
-      <button onClick={onAddHero}>Add {heroName}</button>
+      <button id={heroName} onClick={onAddHero}>
+        Add {heroName}
+      </button>
     </div>
   );
 };

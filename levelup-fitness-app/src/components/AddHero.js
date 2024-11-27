@@ -38,10 +38,9 @@ const AddHero = ({ onClose, id_num }) => {
   const addHeroFunc = (e) => {
     e.preventDefault();
 
-    console.log("adding hero", e.target.id);
+    console.log(`adding hero ${e.target.id} hero`);
 
     // make call to backend to log user in
-    // fetch(process.env.REACT_APP_URL);
     fetch(`${process.env.REACT_APP_API_URL}/auth/addhero/${id_num}`, {
       method: "POST",
       headers: {

@@ -160,7 +160,6 @@ router.get("/user", async (req, res) => {
 
   try {
     const user = await User.findById(userId);
-    console.log(user, "logging user");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

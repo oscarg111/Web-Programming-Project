@@ -101,7 +101,6 @@ const CreateWorkout = () => {
   );
 
   const handleSearch = (e) => {
-    
     const value = e.target.value;
     setIsListVisible(true);
     setSearchTerm(value);
@@ -150,13 +149,14 @@ const CreateWorkout = () => {
   };
   const form = document.getElementById("create-workout-form");
 
-  function clearForm(){
-    form.reset();
+  function clearForm() {
+    // form.reset();
     setSearchTerm("");
     setExerciseName("");
     setIsValid(false);
     setFilteredExercises([]);
   }
+
   const handleRemoveExercise = (exerciseToRemove) => {
     const updatedExercises = workoutList.filter(
       (workout) => workout !== exerciseToRemove
@@ -180,7 +180,9 @@ const CreateWorkout = () => {
       <Navbar />
       <div className="create-workout-container">
         <div className="create-workout-card">
-          <h1 className="page-title">Make a workout for {username ? username : "Loading..."}</h1>
+          <h1 className="page-title">
+            Make a workout for {username ? username : "Loading..."}
+          </h1>
           <div className="workout-form-container">
             <form onSubmit={handleAddWorkout} className="create-workout-form">
               <input
@@ -245,22 +247,33 @@ const CreateWorkout = () => {
                   type="number"
                   onChange={(e) => setWeight(e.target.value)}
                 />
-                <select className="unit-select" id="units" onChange={(e) => setUnits(e.target.value)}>
+                <select
+                  className="unit-select"
+                  id="units"
+                  onChange={(e) => setUnits(e.target.value)}
+                >
                   <option>lbs</option>
                   <option>kgs</option>
                 </select>
-                <button className="add-exercise-button"onClick={handleAddExercise}>+</button>
+                <button
+                  className="add-exercise-button"
+                  onClick={handleAddExercise}
+                >
+                  +
+                </button>
               </div>
               {!validSubmission && (
-                  <p style={{ WebkitTextFillColor: "red" }}>
-                    Please enter a valid submission
-                  </p>
-                )}
+                <p style={{ WebkitTextFillColor: "red" }}>
+                  Please enter a valid submission
+                </p>
+              )}
               <ul>
                 {workoutList.map((workout, index) => (
                   <div>
                     <li key={index}>{workout}</li>
-                    <button onClick={() => handleRemoveExercise(workout)}>-</button>
+                    <button onClick={() => handleRemoveExercise(workout)}>
+                      -
+                    </button>
                   </div>
                 ))}
               </ul>
