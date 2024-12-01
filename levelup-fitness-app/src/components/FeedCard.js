@@ -65,6 +65,13 @@ const FeedCard = ({ post, username }) => {
           <img src={commentIcon} alt="comment button" />
         </div>
       </div>
+      {showUpdateModal && (
+        <UpdatePost
+          post={post}
+          onClose={() => setShowUpdateModal(false)}
+          onUpdate={handleUpdatePost}
+        />
+      )}
     </div>
   );
 };
