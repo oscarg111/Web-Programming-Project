@@ -10,6 +10,38 @@ const router = express.Router();
 // Secret for JWT
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// helper function for parsing workout
+function parseWorkout(statement) {
+  // Regular expression to match workout components
+  const regex = /(.+): (\d+)x(\d+) at (\d+)(lbs|kgs)/;
+  const match = statement.match(regex);
+
+  if (match) {
+    const exercise = match[1]; // Exercise name
+    const sets = parseInt(match[2]); // Number of sets
+    const reps = parseInt(match[3]); // Number of reps
+    let weight = parseInt(match[4]); // Weight
+    const unit = match[5]; // Unit (lbs or kgs)
+
+    // Convert weight to lbs if in kgs
+    if (unit === "kgs") {
+      weight = Math.round(weight * 2.20462); // Convert kgs to lbs
+    }
+
+    const totalVolume = sets * reps * weight; // Calculate total volume
+
+    return {
+      exercise,
+      sets,
+      reps,
+      weight: weight, // Always show weight in lbs
+      totalVolume: totalVolume,
+    };
+  } else {
+    return "Invalid format";
+  }
+}
+
 // Signup route
 router.post("/signup", async (req, res) => {
   const { username, password } = req.body;
@@ -76,9 +108,7 @@ router.post("/login", async (req, res) => {
 
 // create post
 router.post("/postWorkout", async (req, res) => {
-  console.log(req.body);
   const { userName, heroName, postContent, workout } = req.body;
-  console.log(userName, heroName, postContent, workout);
 
   // Basic validation
   if (!userName || !postContent) {
@@ -86,8 +116,12 @@ router.post("/postWorkout", async (req, res) => {
       .status(400)
       .json({ message: "username and post content are required" });
   }
-
+  console.log(userName);
   let user = await User.findOne({ username: userName });
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  console.log(user);
   const today = new Date();
   const dayIndex = today.getDay();
 
@@ -100,9 +134,53 @@ router.post("/postWorkout", async (req, res) => {
     } else {
       const post = new Post({ userName, heroName, postContent, workout });
       user.lastPosted = dayIndex;
+
+      // update the user workout stats with the new workout
+      user.userStats.workoutsCompleted += 1; // update completed workouts
+
+      // sum current workout volume
+      let workoutVolume = 0;
+      console.log(workout);
+
+      for (let exercise of workout) {
+        console.log(exercise);
+        let currentExercise = parseWorkout(exercise);
+        workoutVolume += currentExercise.totalVolume;
+
+        // Configure PRs
+        console.log(user.userStats.lifetimePRs);
+        const currentPR = user.userStats.lifetimePRs.get(
+          currentExercise.exercise
+        );
+
+        console.log(currentPR, "current pr");
+
+        if (!currentPR) {
+          console.log("No PR For this exercise");
+          currentExercise.hit_time = new Date();
+          user.userStats.lifetimePRs.set(
+            currentExercise.exercise,
+            currentExercise
+          );
+        } else if (
+          currentExercise.weight > currentPR.weight ||
+          (currentExercise.weight === currentPR.weight &&
+            currentExercise.sets >= currentPR.sets &&
+            currentExercise.reps >= currentPR.reps)
+        ) {
+          // Update the existing PR instead of using map
+          user.userStats.lifetimePRs.set(
+            currentExercise.exercise,
+            currentExercise
+          );
+        }
+        console.log(user.userStats.lifetimePRs);
+      }
+
+      user.userStats.totalVolume += workoutVolume;
+
       await post.save();
       await user.save();
-      console.log("Created new post: ", post);
       res.status(201).json({ message: "post created" });
     }
   } catch (error) {

@@ -90,7 +90,7 @@ const CreateWorkout = () => {
           .filter((exercise) =>
             exercise.toLowerCase().includes(value.toLowerCase())
           )
-          .slice(0, 3);
+          .slice(0, 5);
 
         setFilteredExercises(filtered);
         console.log(filtered);
@@ -151,7 +151,7 @@ const CreateWorkout = () => {
   };
 
   function clearForm() {
-    form.reset();
+    // form.reset();
     setSearchTerm("");
     setExerciseName("");
     setSets("");

@@ -15,9 +15,23 @@ const HeroSchema = new mongoose.Schema({
 const ExerciseSchema = new mongoose.Schema({
   exercise: {
     type: String,
+    required: true,
+  },
+  sets: {
+    type: Number,
+    required: true,
+  },
+  reps: {
+    type: Number,
+    required: true,
   },
   weight: {
     type: Number,
+    required: true,
+  },
+  hit_time: {
+    type: Date,
+    default: Date.now,
   },
 });
 
