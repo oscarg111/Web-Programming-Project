@@ -143,39 +143,31 @@ router.post("/postWorkout", async (req, res) => {
       console.log(workout);
 
       for (let exercise of workout) {
-        console.log(exercise);
         let currentExercise = parseWorkout(exercise);
         workoutVolume += currentExercise.totalVolume;
 
         // Configure PRs
-        console.log(user.userStats.lifetimePRs);
-        const currentPR = user.userStats.lifetimePRs.get(
-          currentExercise.exercise
+        const currentPR = user.userStats.lifetimePRs.find(
+          (pr) => pr.exercise === currentExercise.exercise
         );
 
-        console.log(currentPR, "current pr");
-
         if (!currentPR) {
-          console.log("No PR For this exercise");
           currentExercise.hit_time = new Date();
-          user.userStats.lifetimePRs.set(
-            currentExercise.exercise,
-            currentExercise
-          );
+          user.userStats.lifetimePRs.push(currentExercise);
         } else if (
           currentExercise.weight > currentPR.weight ||
           (currentExercise.weight === currentPR.weight &&
             currentExercise.sets >= currentPR.sets &&
             currentExercise.reps >= currentPR.reps)
         ) {
-          // Update the existing PR instead of using map
-          user.userStats.lifetimePRs.set(
-            currentExercise.exercise,
-            currentExercise
-          );
+          currentExercise.hit_time = new Date();
+          const index = user.userStats.lifetimePRs.indexOf(currentPR);
+          if (index !== -1) {
+            user.userStats.lifetimePRs[index] = currentExercise;
+          }
         }
-        console.log(user.userStats.lifetimePRs);
       }
+      console.log(user.userStats.lifetimePRs);
 
       user.userStats.totalVolume += workoutVolume;
 
@@ -187,6 +179,101 @@ router.post("/postWorkout", async (req, res) => {
     res
       .status(500)
       .json({ message: "Error making post", error: error.message });
+  }
+});
+
+// update post method
+router.put("/updateWorkout/:postId", async (req, res) => {
+  const { postId } = req.params;
+  const { userName, heroName, postContent, workout } = req.body;
+
+  // Basic validation
+  if (!userName || !postContent || !workout || !Array.isArray(workout)) {
+    return res
+      .status(400)
+      .json({ message: "username, post content, and workout are required" });
+  }
+
+  try {
+    let post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    let user = await User.findOne({ username: userName });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Calculate old workout volume and subtract from user's totalVolume
+    let oldWorkoutVolume = 0;
+    for (let exercise of post.workout) {
+      const parsedExercise = parseWorkout(exercise);
+      oldWorkoutVolume += parsedExercise.totalVolume;
+
+      // If the old workout exercise was a PR, check if it is being updated
+      const currentPR = user.userStats.lifetimePRs.find(
+        (pr) => pr.exercise === parsedExercise.exercise
+      );
+
+      if (
+        currentPR &&
+        currentPR.weight === parsedExercise.weight &&
+        currentPR.sets === parsedExercise.sets &&
+        currentPR.reps === parsedExercise.reps
+      ) {
+        // Remove the PR temporarily until recalculation
+        user.userStats.lifetimePRs = user.userStats.lifetimePRs.filter(
+          (pr) => pr.exercise !== currentPR.exercise
+        );
+      }
+    }
+
+    user.userStats.totalVolume -= oldWorkoutVolume;
+
+    // Update post content and workout
+    post.postContent = postContent;
+    post.heroName = heroName;
+    post.workout = workout;
+
+    let newWorkoutVolume = 0;
+
+    for (let exercise of workout) {
+      let currentExercise = parseWorkout(exercise);
+      newWorkoutVolume += currentExercise.totalVolume;
+
+      // Update or add PRs
+      const currentPR = user.userStats.lifetimePRs.find(
+        (pr) => pr.exercise === currentExercise.exercise
+      );
+
+      if (!currentPR) {
+        currentExercise.hit_time = new Date();
+        user.userStats.lifetimePRs.push(currentExercise);
+      } else if (
+        currentExercise.weight > currentPR.weight ||
+        (currentExercise.weight === currentPR.weight &&
+          currentExercise.sets >= currentPR.sets &&
+          currentExercise.reps >= currentPR.reps)
+      ) {
+        currentExercise.hit_time = new Date();
+        const index = user.userStats.lifetimePRs.indexOf(currentPR);
+        if (index !== -1) {
+          user.userStats.lifetimePRs[index] = currentExercise;
+        }
+      }
+    }
+
+    user.userStats.totalVolume += newWorkoutVolume;
+
+    await post.save();
+    await user.save();
+
+    res.status(200).json({ message: "Post updated successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating post", error: error.message });
   }
 });
 

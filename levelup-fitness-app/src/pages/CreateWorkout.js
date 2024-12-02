@@ -24,6 +24,7 @@ const CreateWorkout = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isValid, setIsValid] = useState(false); // Valid selection flag
   const [validSubmission, setValidSubmission] = useState(true);
+  const [isListVisible, setIsListVisible] = useState(false);
 
   // get user/hero data
   useEffect(() => {
@@ -69,7 +70,6 @@ const CreateWorkout = () => {
           .map((item) => item.name)
           .filter((name) => typeof name === "string"); // Filter out invalid names
         setExercises(names);
-        console.log("Exercises array:", exercises);
       })
       .catch((error) => console.error("Error fetching exercises:", error));
   }, []);
@@ -90,7 +90,7 @@ const CreateWorkout = () => {
           .filter((exercise) =>
             exercise.toLowerCase().includes(value.toLowerCase())
           )
-          .slice(0, 5);
+          .slice(0, 50);
 
         setFilteredExercises(filtered);
         console.log(filtered);
@@ -110,25 +110,31 @@ const CreateWorkout = () => {
     if (value && typeof value === "string") handleSearchDebounced(value);
   };
 
-  const handleAddWorkout = (e) => {
+  const handleAddWorkout = async (e) => {
     e.preventDefault();
 
     console.log(username);
-    fetch(`${process.env.REACT_APP_API_URL}/auth/postWorkout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: username,
-        heroName: username,
-        postContent: description,
-        workout: workoutList,
-      }),
-    })
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/auth/postWorkout`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: username,
+          heroName: username,
+          postContent: description,
+          workout: workoutList,
+        }),
+      }
+    )
       .then((response) => response.json())
       .catch((error) => console.error("Error:", error));
-    navigate("/feed");
+    if (response.status == 201) navigate("/feed");
+    else {
+      console.log("Unsuccessful post");
+    }
     clearForm();
   };
 
@@ -175,8 +181,6 @@ const CreateWorkout = () => {
     setIsValid(true); // Mark as valid selection
     setIsListVisible(false);
   };
-
-  const [isListVisible, setIsListVisible] = useState(false);
 
   return (
     <div className="create-workout-page">
@@ -232,6 +236,7 @@ const CreateWorkout = () => {
                   placeholder="Number of sets"
                   id="setCount"
                   type="number"
+                  value={sets}
                   onChange={(e) => setSets(e.target.value)}
                 />
                 <input
@@ -239,6 +244,7 @@ const CreateWorkout = () => {
                   placeholder="Number of reps"
                   id="repCount"
                   type="number"
+                  value={reps}
                   onChange={(e) => setReps(e.target.value)}
                 />
               </div>
@@ -248,6 +254,7 @@ const CreateWorkout = () => {
                   placeholder="Weight"
                   id="weight"
                   type="number"
+                  value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                 />
                 <select

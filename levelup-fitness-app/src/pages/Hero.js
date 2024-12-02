@@ -32,7 +32,7 @@ const HeroPage = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("getting user");
-            console.log(data);
+            console.log(data.userStats.lifetimePRs);
             setHeroes(data.heroes);
             console.log(heroes);
             setUser(data);
@@ -63,7 +63,7 @@ const HeroPage = () => {
             {user.username ? user.username : "Loading..."}
           </h2>
           <div className="hero-container">
-            <button 
+            <button
               className="hero-btns"
               onClick={() => {
                 setViewHeroes(true);

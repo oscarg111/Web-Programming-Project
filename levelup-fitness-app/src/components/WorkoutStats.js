@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PRItem from "./PRItem";
+import "./WorkoutStats.css";
 
 const WorkoutStats = ({ workoutsCompleted, totalVolume, lifetimePRs }) => {
   useEffect(() => {
     console.log("being used");
-    console.log(Object.keys(lifetimePRs));
   }, []);
 
   const formatDate = (dateString) => {
@@ -24,22 +24,24 @@ const WorkoutStats = ({ workoutsCompleted, totalVolume, lifetimePRs }) => {
   };
 
   return (
-    <div>
+    <div className="workout-stats-page">
       <h1>Workout Stats</h1>
       <p>total workouts: {workoutsCompleted}</p>
       <p>total volume: {totalVolume}</p>
       <p>list of lifetime PRs:</p>
-      {Object.keys(lifetimePRs).length > 0
-        ? Object.keys(lifetimePRs).map((workout) => (
-            <PRItem
-              exercise={workout}
-              sets={lifetimePRs[workout][0].sets}
-              reps={lifetimePRs[workout][0].reps}
-              weight={lifetimePRs[workout][0].weight}
-              hit_time={formatDate(lifetimePRs[workout][0].hit_time)}
-            />
-          ))
-        : "No Lifetime PRs"}
+      <div className="lifetime-prs">
+        {lifetimePRs.length > 0
+          ? lifetimePRs.map((workout) => (
+              <PRItem
+                exercise={workout.exercise}
+                sets={workout.sets}
+                reps={workout.reps}
+                weight={workout.weight}
+                hit_time={formatDate(workout.hit_time)}
+              />
+            ))
+          : "No Lifetime PRs"}
+      </div>
     </div>
   );
 };

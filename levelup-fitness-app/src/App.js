@@ -18,6 +18,8 @@ import SignUpPage from "./pages/SignUp";
 import Feed from "./pages/Feed";
 import CreateWorkout from "./pages/CreateWorkout";
 import { AuthContext, AuthProvider } from "./contexts/AuthContext";
+import Leaderboard from "./pages/Leaderboard";
+import HeroPath from "./pages/HeroPath";
 const userLoggedIn = false;
 
 const AnimatedRoutes = () => {
@@ -38,8 +40,9 @@ const AnimatedRoutes = () => {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/hero-path" element={<HeroPath />} />
           <Route path="/hero" element={<HeroPage />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

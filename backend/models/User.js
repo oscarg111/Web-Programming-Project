@@ -45,8 +45,8 @@ const UserStatsSchema = new mongoose.Schema({
     required: true,
   },
   lifetimePRs: {
-    type: Map,
-    of: [ExerciseSchema],
+    type: [ExerciseSchema],
+    default: [],
   },
 });
 

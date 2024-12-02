@@ -5,7 +5,7 @@
   background-color: var(--blue);
   width: 80rem;
   height: 50rem;
-  align-items:center;
+  align-items: center;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -35,9 +35,8 @@
   margin-top: 2rem;
   flex-direction: column;
   align-items: center;
-
 }
-.create-workout-page{
+.create-workout-page {
   width: 100vw;
   display: flex;
   height: 100vh;
@@ -52,13 +51,35 @@ input {
   justify-content: center;
   flex-direction: column;
   background-color: white;
-  padding:1rem;
+  padding: 1rem;
   border-radius: 10px;
   z-index: 100;
-  position:absolute;
-  margin-top: -1rem;
+  position: absolute;
+  margin-top: -4rem;
   border: solid;
+  max-height: 100px;
+  overflow-y: auto;
 }
+
+/* Customize the scrollbar */
+.exercise-list::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+.exercise-list::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background color of the scrollbar track */
+  border-radius: 10px; /* Optional: rounded track corners */
+}
+
+.exercise-list::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar handle */
+  border-radius: 10px; /* Optional: rounded handle corners */
+}
+
+.exercise-list::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color on hover */
+}
+
 .weight-input {
   margin: 0;
   padding: 0;
@@ -68,7 +89,7 @@ input {
   margin-right: 1rem;
 }
 .add-exercise-button {
-  margin:0;
+  margin: 0;
   margin-left: 1rem;
 }
 .unit-select {
@@ -79,7 +100,7 @@ input {
   width: 70%;
 }
 .exercise-search-input {
-  width:70%;
+  width: 70%;
 }
 .create-workout-form input {
   margin-bottom: 2rem;
@@ -97,18 +118,17 @@ input {
   align-items: center;
   justify-content: space-between;
 }
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {
   margin-right: 1rem;
   width: 25px;
   height: 30px;
 }
-.remove-exercise-button{
+.remove-exercise-button {
   background: none;
   box-shadow: none;
   background-color: none;
 }
-.trash-icon{
+.trash-icon {
   height: 25px;
   width: auto;
 }
-

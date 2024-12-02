@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./UpdatePost.css";
+import { useNavigate } from "react-router-dom";
 
 const UpdatePost = ({ post, onClose, onUpdate }) => {
-  const [description, setDescription] = useState(post.description || "");
+  const [description, setDescription] = useState(post.postContent || "");
   const [workoutList, setWorkoutList] = useState(post.workout || []);
   const [editIndex, setEditIndex] = useState(null);
   const [exerciseName, setExerciseName] = useState("");
@@ -10,6 +11,60 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [units, setUnits] = useState("lbs");
+  const [exerciseSuperList, setExerciseSuperList] = useState([]);
+  const [filteredExercises, setFilteredExercises] = useState([]);
+  const [isValid, setIsValid] = useState(true);
+  const [isListVisible, setIsListVisible] = useState(false);
+  const [validSubmission, setValidSubmission] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(
+      "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const names = data
+          .map((item) => item.name)
+          .filter((name) => typeof name === "string"); // Filter out invalid names
+        setExerciseSuperList(names);
+      })
+      .catch((error) => console.error("Error fetching exercises:", error));
+  }, []);
+
+  const debounce = (func, delay) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  const handleSearchDebounced = useCallback(
+    debounce((value) => {
+      if (value && Array.isArray(exerciseSuperList)) {
+        const filtered = exerciseSuperList
+          .filter((exercise) =>
+            exercise.toLowerCase().includes(value.toLowerCase())
+          )
+          .slice(0, 50);
+
+        setFilteredExercises(filtered);
+        console.log(filtered);
+      } else {
+        setFilteredExercises([]);
+      }
+    }, 300),
+    [exerciseSuperList]
+  );
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setIsListVisible(true);
+    setExerciseName(value);
+    setIsValid(false);
+    if (value && typeof value === "string") handleSearchDebounced(value);
+  };
 
   // Fill the form for editing a specific exercise
   const handleEditExercise = (index) => {
@@ -56,16 +111,25 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
     setEditIndex(null);
   };
 
+  const handleOptionClick = (option) => {
+    setExerciseName(option);
+    setValidSubmission(true);
+    setFilteredExercises([]); // Clear suggestions
+    setIsValid(true); // Mark as valid selection
+    setIsListVisible(false);
+  };
+
   // Submit the updated post to the backend
   const handleUpdatePost = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/auth/updatePost`, {
+    fetch(`${process.env.REACT_APP_API_URL}/auth/updateWorkout/${post._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        postId: post.id,
-        description,
+        userName: post.userName,
+        heroName: post.heroName,
+        postContent: description,
         workout: workoutList,
       }),
     })
@@ -75,13 +139,18 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
         onClose(); // Close the modal
       })
       .catch((error) => console.error("Error updating post:", error));
+    navigate("/feed");
+
+    console.log(post);
+    console.log(description);
+    console.log(workoutList);
   };
 
   return (
     <div className="update-post-popup">
       <div className="update-post-content">
         <button className="close-btn" onClick={onClose}>
-          ×
+          x
         </button>
         <h2>Update Workout</h2>
         <form>
@@ -106,22 +175,45 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
 
           <div className="exercise-form">
             <p>Exercise Name:</p>
-            <input
-              value={exerciseName}
-              onChange={(e) => setExerciseName(e.target.value)}
-            />
+            <input value={exerciseName} onChange={handleSearch} />
+            {isListVisible && (
+              <ul className="exercise-list">
+                {filteredExercises.map((exercise, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleOptionClick(exercise)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {exercise
+                      .split(new RegExp(`(${exerciseName})`, "i"))
+                      .map((part, i) =>
+                        part.toLowerCase() === exerciseName.toLowerCase() ? (
+                          <span key={i} style={{ fontWeight: "bold" }}>
+                            {part}
+                          </span>
+                        ) : (
+                          part
+                        )
+                      )}
+                  </li>
+                ))}
+              </ul>
+            )}
             <p>Number of Sets:</p>
             <input
+              type="number"
               value={sets}
               onChange={(e) => setSets(e.target.value)}
             />
             <p>Number of Reps:</p>
             <input
+              type="number"
               value={reps}
               onChange={(e) => setReps(e.target.value)}
             />
             <p>Weight:</p>
             <input
+              type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
             />

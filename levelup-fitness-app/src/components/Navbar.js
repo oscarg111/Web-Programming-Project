@@ -8,6 +8,7 @@ import hero_icon from "../assets/avatar.png";
 import close_icon from "../assets/icon-close.webp";
 import nav_icon from "../assets/dumbell.png";
 import fight_icon from "../assets/fight.png";
+import leaderboard_icon from "../assets/leaderboard-icon.png";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -45,7 +46,14 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item contact-icon">
-            <Link to="/contact"><img src={fight_icon} alt="fight icon" /></Link>
+            <Link to="/hero-path">
+              <img src={fight_icon} alt="fight icon" />
+            </Link>
+          </li>
+          <li className="nav-item contact-icon">
+            <Link to="/leaderboard">
+              <img src={leaderboard_icon} alt="leaderboard icon" />
+            </Link>
           </li>
           {/* <li className="nav-item about-us">
             <Link to="/About">About Us</Link>

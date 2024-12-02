@@ -90,3 +90,31 @@
 .dropdown-alert {
   animation: slideDown 0.3s ease-out;
 }
+
+button {
+  transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
+  cursor: pointer; /* Changes cursor to a finger pointer on hover */
+}
+
+button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); /* Box-shadow effect on hover */
+}
+
+/* Customize the scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background color of the scrollbar track */
+  border-radius: 10px; /* Optional: rounded track corners */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar handle */
+  border-radius: 10px; /* Optional: rounded handle corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color on hover */
+}

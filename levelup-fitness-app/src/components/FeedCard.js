@@ -11,6 +11,7 @@ import hulk from "../assets/hulk.png";
 
 const FeedCard = ({ post, username }) => {
   const navigate = useNavigate();
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const deletePost = async () => {
     const response = await fetch(
@@ -50,27 +51,26 @@ const FeedCard = ({ post, username }) => {
             </p>
             <p>
               {" "}
-              {username === post.userName ? (
-                <button onClick={deletePost}>Delete Post</button>
-              ) : (
-                <button>Test</button>
+              {username === post.userName && (
+                <DeleteConfirmation onDelete={deletePost} />
               )}
             </p>
+            {username === post.userName && (
+              <button onClick={() => setShowUpdateModal(true)}>
+                Update Post
+              </button>
+            )}
           </div>
         </div>
         {/* Brandon and ari here are your respective components please work on these */}
-        <DeleteConfirmation />
+
         {/* <UpdatePost /> */}
         <div className="comment-section">
           <img src={commentIcon} alt="comment button" />
         </div>
       </div>
       {showUpdateModal && (
-        <UpdatePost
-          post={post}
-          onClose={() => setShowUpdateModal(false)}
-          onUpdate={handleUpdatePost}
-        />
+        <UpdatePost post={post} onClose={() => setShowUpdateModal(false)} />
       )}
     </div>
   );
