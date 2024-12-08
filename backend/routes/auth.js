@@ -182,6 +182,59 @@ router.post("/postWorkout", async (req, res) => {
   }
 });
 
+// add a comment
+router.post("/comment/:id", async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id });
+    const { commentContent, commenter } = req.body;
+    const comment = req.body;
+    if (!commentContent || !commenter) {
+      return res.status(400).send("Request body not full");
+    }
+
+    comment.commentTime = new Date();
+
+    post.comments.push(req.body);
+    await post.save();
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// add hero to specific users array
+router.post("/addhero/:id", async (req, res) => {
+  // with the user id, will add the hero in the body
+  // to the user's hero array
+  const id_num = req.params.id;
+  try {
+    const hero = await Heroes.findOne({ name: req.body.name });
+    const user = await User.findOne({ _id: id_num });
+
+    if (!hero || !user) {
+      return res.status(404).json({ message: "Hero or User not found" });
+    }
+
+    let heroExists = user.heroes.some(
+      (_hero) => _hero._id.toString() === hero._id.toString()
+    );
+
+    console.log("Hero Exists: ", heroExists);
+
+    if (!heroExists) {
+      console.log("Adding hero");
+      user.heroes.push(hero);
+      await user.save();
+
+      res.status(200).json({ message: "Hero added successfully" });
+    } else {
+      res.status(400).json({ message: "User already has that hero" });
+    }
+  } catch (error) {
+    console.error("Error adding hero to ");
+  }
+});
+
 // update post method
 router.put("/updateWorkout/:postId", async (req, res) => {
   const { postId } = req.params;
@@ -277,39 +330,6 @@ router.put("/updateWorkout/:postId", async (req, res) => {
   }
 });
 
-// add hero to specific users array
-router.post("/addhero/:id", async (req, res) => {
-  // with the user id, will add the hero in the body
-  // to the user's hero array
-  const id_num = req.params.id;
-  try {
-    const hero = await Heroes.findOne({ name: req.body.name });
-    const user = await User.findOne({ _id: id_num });
-
-    if (!hero || !user) {
-      return res.status(404).json({ message: "Hero or User not found" });
-    }
-
-    let heroExists = user.heroes.some(
-      (_hero) => _hero._id.toString() === hero._id.toString()
-    );
-
-    console.log("Hero Exists: ", heroExists);
-
-    if (!heroExists) {
-      console.log("Adding hero");
-      user.heroes.push(hero);
-      await user.save();
-
-      res.status(200).json({ message: "Hero added successfully" });
-    } else {
-      res.status(400).json({ message: "User already has that hero" });
-    }
-  } catch (error) {
-    console.error("Error adding hero to ");
-  }
-});
-
 router.get("/getheroes", async (req, res) => {
   try {
     const heroes = await Heroes.find();
@@ -319,19 +339,34 @@ router.get("/getheroes", async (req, res) => {
   }
 });
 
-// get users
+// Get user data from JWT
 router.get("/user", async (req, res) => {
-  const userId = req.query.userId;
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res
+      .status(401)
+      .json({ message: "Authorization token missing or invalid" });
+  }
+
+  const token = authHeader.split(" ")[1]; // Extract the token
 
   try {
-    const user = await User.findById(userId);
+    // Decode the token
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const userId = decoded.userId;
+
+    // Fetch user by userId
+    const user = await User.findById(userId).select("-password"); // Exclude sensitive fields like password
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json(user);
+    res.json(user); // Send back the user data
   } catch (error) {
-    res.status(500).json({ message: "Error fetching user data" });
+    res
+      .status(500)
+      .json({ message: "Error fetching user data", error: error.message });
   }
 });
 
@@ -340,6 +375,20 @@ router.get("/posts", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// get comments form a specific post
+router.get("/comments/:id", async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id });
+    const comments = post.comments.sort(
+      (a, b) => new Date(b.commentTime) - new Date(a.commentTime)
+    );
+    console.log(comments);
+    res.status(200).json(comments);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

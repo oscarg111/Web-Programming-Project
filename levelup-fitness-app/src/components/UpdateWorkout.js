@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./UpdatePost.css";
+import "./PostPopup.css";
 import { useNavigate } from "react-router-dom";
+import ReactDOM from "react-dom";
 
-const UpdatePost = ({ post, onClose, onUpdate }) => {
+const UpdatePost = ({ isOpen, post, onClose, onUpdate }) => {
   const [description, setDescription] = useState(post.postContent || "");
   const [workoutList, setWorkoutList] = useState(post.workout || []);
   const [editIndex, setEditIndex] = useState(null);
@@ -31,6 +33,19 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
       })
       .catch((error) => console.error("Error fetching exercises:", error));
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("no-scroll"); // Disable scrolling
+    } else {
+      document.body.classList.remove("no-scroll"); // Enable scrolling
+    }
+
+    // Cleanup function to remove class on unmount
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isOpen]);
 
   const debounce = (func, delay) => {
     let timer;
@@ -146,9 +161,9 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
     console.log(workoutList);
   };
 
-  return (
-    <div className="update-post-popup">
-      <div className="update-post-content">
+  return ReactDOM.createPortal(
+    <div className="post-popup">
+      <div className="popup-content">
         <button className="close-btn" onClick={onClose}>
           x
         </button>
@@ -230,7 +245,8 @@ const UpdatePost = ({ post, onClose, onUpdate }) => {
           Update Post
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

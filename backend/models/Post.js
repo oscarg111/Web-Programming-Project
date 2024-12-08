@@ -1,5 +1,20 @@
 const mongoose = require("mongoose");
 
+const comment = new mongoose.Schema({
+  commentContent: {
+    type: String,
+    required: true,
+  },
+  commenter: {
+    type: String,
+    required: true,
+  },
+  commentTime: {
+    type: Date,
+    default: Date.now, // sets default to current date and time
+  },
+});
+
 const PostSchema = new mongoose.Schema({
   userName: {
     type: String,
@@ -20,6 +35,10 @@ const PostSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now, // sets default to current date and time
+  },
+  comments: {
+    type: [comment],
+    default: [],
   },
 });
 

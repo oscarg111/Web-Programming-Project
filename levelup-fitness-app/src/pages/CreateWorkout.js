@@ -28,35 +28,22 @@ const CreateWorkout = () => {
 
   // get user/hero data
   useEffect(() => {
-    console.log("Page reload");
-    console.log(user);
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
-      console.log("token");
-      try {
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.userId;
-
-        // fetch UID from mongoDB with api call
-        fetch(`${process.env.REACT_APP_API_URL}/auth/user?userId=${userId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Setting user Data");
-            setUsername(data.username);
-            setHeroData({
-              name: data.username,
-              health: 50,
-              maxHealth: 100,
-              attack: 10,
-              defense: 20,
-            });
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
-      } catch (error) {
-        console.error("Invalid token");
-      }
-    }
+    fetch(`${process.env.REACT_APP_API_URL}/auth/user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.status);
+        if (response.status === 500) {
+          throw new Error("Server error");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUsername(data.username);
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
   }, []);
 
   // get workouts data
@@ -182,7 +169,7 @@ const CreateWorkout = () => {
     setIsListVisible(false);
   };
 
-  return (
+  return username ? (
     <div className="create-workout-page">
       <Navbar />
       <div className="create-workout-container">
@@ -291,6 +278,14 @@ const CreateWorkout = () => {
             </form>
           </div>
         </div>
+      </div>
+    </div>
+  ) : (
+    <div className="create-workout-page">
+      <Navbar />
+      <div className="create-workout-container">
+        <h1>Login to create workouts</h1>
+        <button onClick={() => navigate("/login")}>Login</button>
       </div>
     </div>
   );

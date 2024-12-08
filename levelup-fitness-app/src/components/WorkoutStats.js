@@ -27,7 +27,7 @@ const WorkoutStats = ({ workoutsCompleted, totalVolume, lifetimePRs }) => {
     <div className="workout-stats-page">
       <h1>Workout Stats</h1>
       <p>total workouts: {workoutsCompleted}</p>
-      <p>total volume: {totalVolume}</p>
+      <p>total volume: {(totalVolume / 2000).toFixed(2)} tons</p>
       <p>list of lifetime PRs:</p>
       <div className="lifetime-prs">
         {lifetimePRs.length > 0

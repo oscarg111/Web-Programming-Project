@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Feed.css";
 import smallKnight from "../assets/small knight.png";
+import { useNavigate } from "react-router-dom";
 
 const Feed = ({ userLoggedIn }) => {
   const { user, logout } = useContext(AuthContext);
@@ -15,6 +16,7 @@ const Feed = ({ userLoggedIn }) => {
   const [error, setError] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [username, setUsername] = useState(null);
+  const navigate = useNavigate();
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -22,25 +24,23 @@ const Feed = ({ userLoggedIn }) => {
 
   // get user/hero data
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.userId;
-
-        // fetch UID from mongoDB with api call
-        fetch(`${process.env.REACT_APP_API_URL}/auth/user?userId=${userId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Setting user Data");
-            setUsername(data.username);
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
-      } catch (error) {
-        console.error("Invalid token");
-      }
-    }
+    fetch(`${process.env.REACT_APP_API_URL}/auth/user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.status);
+        if (response.status === 500) {
+          throw new Error("Server error");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUsername(data.username);
+        console.log(user);
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
   }, []);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const Feed = ({ userLoggedIn }) => {
   if (loading) return <p>Loading posts...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  return (
+  return username ? (
     <div className="feed-pg">
       <Navbar />
       <div className="feed-container">
@@ -83,6 +83,16 @@ const Feed = ({ userLoggedIn }) => {
           {posts.map((post, index) => (
             <FeedCard key={index} post={post} username={username} />
           ))}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="feed-pg">
+      <Navbar />
+      <div className="feed-container">
+        <div className="feed-cards">
+          <h1>Login to see Feed</h1>
+          <button onClick={() => navigate("/login")}>Login</button>
         </div>
       </div>
     </div>

@@ -11,37 +11,32 @@ import WorkoutStats from "../components/WorkoutStats";
 
 const HeroPage = () => {
   const [heroes, setHeroes] = useState([]);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [addHeroOpen, setAddHeroOpen] = useState(false);
   const [viewWorkoutStats, setViewWorkoutStats] = useState(false);
   const [viewHeroes, setViewHeroes] = useState(false);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // get user/hero data
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.userId;
-
-        // fetch UID from mongoDB with api call
-        fetch(`${process.env.REACT_APP_API_URL}/auth/user?userId=${userId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("getting user");
-            console.log(data.userStats.lifetimePRs);
-            setHeroes(data.heroes);
-            console.log(heroes);
-            setUser(data);
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
-      } catch (error) {
-        console.error("Invalid token");
-      }
-    }
+    fetch(`${process.env.REACT_APP_API_URL}/auth/user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    })
+      .then((response) => {
+        console.log(response.status);
+        if (response.status === 500) {
+          throw new Error("Server error");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUser(data);
+        setHeroes(data.heroes);
+        console.log(user);
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
   }, []);
 
   const handleLogout = () => {
@@ -53,7 +48,7 @@ const HeroPage = () => {
   const closeAddHero = () => setAddHeroOpen(false);
 
   // let isLoggedIn = false;
-  return heroes ? (
+  return user ? (
     <div className="hero-page">
       <Navbar />
       <div class="hero-pg-container">
@@ -106,10 +101,9 @@ const HeroPage = () => {
   ) : (
     <div className="hero-page">
       <Navbar />
-      <div class="hero-pg-content">
-        <h2>Add a hero</h2>
-        <button onClick={openAddHero}>Add Hero</button>
-        {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
+      <div class="hero-pg-container">
+        <h2>Login to see heroes</h2>
+        <button onClick={() => navigate("/login")}>Login</button>
       </div>
     </div>
   );

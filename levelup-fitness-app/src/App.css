@@ -118,3 +118,26 @@ button:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Darker color on hover */
 }
+
+body.no-scroll {
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* adjust media for app navbar or web browser navbar */
+@media (min-width: 768px) {
+  .web-navbar {
+    display: block;
+  }
+  .phone-navbar {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .web-navbar {
+    display: none;
+  }
+  .phone-navbar {
+    display: block;
+  }
+}

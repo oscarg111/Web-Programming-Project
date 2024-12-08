@@ -8,10 +8,12 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import { useNavigate } from "react-router-dom";
 import UpdatePost from "./UpdateWorkout";
 import hulk from "../assets/hulk.png";
+import Comments from "./Comments";
 
 const FeedCard = ({ post, username }) => {
   const navigate = useNavigate();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   const deletePost = async () => {
     const response = await fetch(
@@ -48,29 +50,42 @@ const FeedCard = ({ post, username }) => {
               {post.workout.map((exercise) => (
                 <p>{exercise}</p>
               ))}
-            </p>
-            <p>
-              {" "}
-              {username === post.userName && (
-                <DeleteConfirmation onDelete={deletePost} />
-              )}
-            </p>
-            {username === post.userName && (
-              <button onClick={() => setShowUpdateModal(true)}>
-                Update Post
-              </button>
-            )}
+            </p>{" "}
           </div>
         </div>
         {/* Brandon and ari here are your respective components please work on these */}
 
         {/* <UpdatePost /> */}
-        <div className="comment-section">
+        <br></br>
+
+        <div onClick={() => setShowComments(true)} className="comment-section">
           <img src={commentIcon} alt="comment button" />
+        </div>
+        <div>
+          {username === post.userName && (
+            <DeleteConfirmation onDelete={deletePost} />
+          )}
+          {username === post.userName && (
+            <button onClick={() => setShowUpdateModal(true)}>
+              Update Post
+            </button>
+          )}
         </div>
       </div>
       {showUpdateModal && (
-        <UpdatePost post={post} onClose={() => setShowUpdateModal(false)} />
+        <UpdatePost
+          isOpen={showUpdateModal}
+          post={post}
+          onClose={() => setShowUpdateModal(false)}
+        />
+      )}
+      {showComments && (
+        <Comments
+          isOpen={showComments}
+          onClose={() => setShowComments(false)}
+          post={post}
+          username={username}
+        />
       )}
     </div>
   );
