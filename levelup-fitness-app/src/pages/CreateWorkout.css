@@ -83,6 +83,7 @@ input {
 .weight-input {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 .weightform-input {
   width: 50%;
@@ -117,11 +118,12 @@ input {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 input[type="number"]::-webkit-inner-spin-button {
-  margin-right: 1rem;
-  width: 25px;
-  height: 30px;
+  /* margin-right: 1rem; */
+  /* width: 25px;
+  height: 30px; */
 }
 .remove-exercise-button {
   background: none;
@@ -131,4 +133,80 @@ input[type="number"]::-webkit-inner-spin-button {
 .trash-icon {
   height: 25px;
   width: auto;
+}
+
+@media (max-width: 768px) {
+  .create-workout-card {
+    width: 90vw; /* Adjust width to fit smaller screens */
+    height: auto; /* Allow height to adjust dynamically */
+    padding: 1rem;
+    margin-bottom: 10%;
+  }
+
+  .workout-form-container {
+    width: 90%; /* Fit within viewport width */
+    height: auto; /* Adjust height dynamically */
+  }
+
+  .create-workout-container {
+    transform: none; /* Remove offset for mobile */
+    width: 100%; /* Use full width */
+    margin: 1rem 0; /* Reduce margins */
+  }
+
+  .create-workout-form {
+    margin-top: 1rem; /* Reduce top margin */
+    width: 100%; /* Use full width */
+  }
+
+  .exercise-list {
+    max-height: 200px; /* Allow taller dropdowns on mobile */
+    margin-top: 0; /* Adjust positioning */
+  }
+
+  .workout-description-input,
+  .exercise-search-input {
+    width: 100%; /* Full width for inputs */
+  }
+
+  .weightform-input {
+    width: 100%; /* Full width on mobile */
+    margin-bottom: 1rem;
+  }
+
+  .unit-select {
+    width: 100%; /* Full width for select inputs */
+    margin-bottom: 1rem;
+  }
+
+  .sets-rep-input {
+    flex-direction: column; /* Stack inputs vertically */
+    align-items: flex-start;
+  }
+
+  .sets-input,
+  .rep-input {
+    width: 100%; /* Full width for inputs */
+    margin-bottom: 1rem;
+  }
+
+  .trash-icon {
+    height: 20px; /* Smaller icons for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .create-workout-card {
+    padding: 0.5rem; /* Less padding on very small screens */
+  }
+
+  .workout-form-container {
+    padding: 0.5rem; /* Reduce padding */
+  }
+
+  input,
+  select,
+  button {
+    font-size: 14px; /* Smaller text for smaller screens */
+  }
 }

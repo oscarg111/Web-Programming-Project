@@ -58,8 +58,12 @@ const FeedCard = ({ post, username }) => {
         {/* <UpdatePost /> */}
         <br></br>
 
-        <div onClick={() => setShowComments(true)} className="comment-section">
-          <img src={commentIcon} alt="comment button" />
+        <div className="comment-section">
+          <img
+            onClick={() => setShowComments(true)}
+            src={commentIcon}
+            alt="comment button"
+          />
         </div>
         <div>
           {username === post.userName && (

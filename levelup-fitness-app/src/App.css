@@ -138,6 +138,6 @@ body.no-scroll {
     display: none;
   }
   .phone-navbar {
-    display: block;
+    display: flex;
   }
 }

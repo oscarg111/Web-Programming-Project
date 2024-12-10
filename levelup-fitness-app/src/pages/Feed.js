@@ -75,27 +75,33 @@ const Feed = ({ userLoggedIn }) => {
   if (error) return <p>Error: {error}</p>;
 
   return username ? (
-    <div className="feed-pg">
+    <>
       <Navbar />
-      <div className="feed-container">
-        <h1 className="page-title">feed for {username}</h1>
-        <div className="feed-cards">
-          {posts.map((post, index) => (
-            <FeedCard key={index} post={post} username={username} />
-          ))}
+
+      <div className="feed-pg">
+        <div className="feed-container">
+          <h1 className="page-title">feed for {username}</h1>
+          <div className="feed-cards">
+            {posts.map((post, index) => (
+              <FeedCard key={index} post={post} username={username} />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   ) : (
-    <div className="feed-pg">
+    <>
       <Navbar />
-      <div className="feed-container">
-        <div className="feed-cards">
-          <h1>Login to see Feed</h1>
-          <button onClick={() => navigate("/login")}>Login</button>
+
+      <div className="feed-pg">
+        <div className="feed-container">
+          <div className="feed-cards">
+            <h1>Login to see Feed</h1>
+            <button onClick={() => navigate("/login")}>Login</button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

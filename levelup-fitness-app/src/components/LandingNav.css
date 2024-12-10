@@ -1,27 +1,64 @@
 * {
-    font-family: "Press Start 2P", system-ui;
+  font-family: "Press Start 2P", system-ui;
 }
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 1.8rem 5rem 1.8rem 5rem;
-    height: 5vh;
-  }
-.Logo a{
-    text-decoration: none;
-    Color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.8rem 5rem 1.8rem 5rem;
+  height: 15vh;
+  flex-direction: row; /* Ensure items are in a single row */
 }
-li {
-    display: inline;
+
+.navbar-logo {
+  display: flex;
+  align-items: center; /* Aligns the logo and text vertically */
 }
-a {
-    color: black;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    margin: 2.5rem;
+
+.logo-image {
+  width: 10vh;
+  height: 10vh;
+  margin-right: 1rem; /* Adds spacing between the image and the text */
 }
+
+.Logo a {
+  text-decoration: none;
+  color: black;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none; /* Removes bullets from the list */
+}
+
+.navbar-links li {
+  display: inline-block;
+  margin: 0 1rem; /* Adds spacing between links */
+}
+
+.navbar-links a {
+  display: inline-block;
+  padding: 0.5rem 1rem; /* Add padding for the pill shape */
+  border-radius: 50px; /* Makes the links pill-shaped */
+  background-color: #f0f0f0; /* Default background color */
+  color: black; /* Text color */
+  text-decoration: none; /* Remove underline */
+  transition: all 0.3s ease; /* Smooth transition for hover and active states */
+}
+
+.navbar-links a:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  background-color: #eaeaea; /* Slightly change background color on hover */
+}
+
 a:hover {
-    color: #FF8132;
+  color: #ff8132;
+}
+
+.navbar-links a.active {
+  background-color: #ff8132; /* Highlight active link */
+  color: white; /* White text for better contrast */
+  font-weight: bold; /* Emphasize active link */
 }
