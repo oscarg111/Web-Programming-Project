@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/levelup-fitness-app/static/css/main.ad8cabf7.css",
+    "main.js": "/levelup-fitness-app/static/js/main.d6349b0c.js",
+    "static/js/453.3cd29ff3.chunk.js": "/levelup-fitness-app/static/js/453.3cd29ff3.chunk.js",
+    "static/media/screenshot_4.png": "/levelup-fitness-app/static/media/screenshot_4.a00f0922535f3e025f8c.png",
+    "static/media/screenshot_1.png": "/levelup-fitness-app/static/media/screenshot_1.70aec66729b2fc616557.png",
+    "static/media/screenshot_3.png": "/levelup-fitness-app/static/media/screenshot_3.3522e3bea6833ec73b41.png",
+    "static/media/logo.png": "/levelup-fitness-app/static/media/logo.fcf8c91e214c90514c93.png",
+    "static/media/screenshot_2.png": "/levelup-fitness-app/static/media/screenshot_2.463e8d27ab8ee30a2990.png",
+    "static/media/leaderboard-icon.png": "/levelup-fitness-app/static/media/leaderboard-icon.e8e2661db93453853693.png",
+    "static/media/samurai.png": "/levelup-fitness-app/static/media/samurai.72e471976c4d5ff940fa.png",
+    "static/media/small knight.png": "/levelup-fitness-app/static/media/small knight.3fb270247aa86b8e4b75.png",
+    "static/media/hulk.png": "/levelup-fitness-app/static/media/hulk.4cad7d834e144ea7468c.png",
+    "static/media/view_password.png": "/levelup-fitness-app/static/media/view_password.c19b9e3590579a3ec888.png",
+    "static/media/hide_password.png": "/levelup-fitness-app/static/media/hide_password.54b3107d160578572bcc.png",
+    "static/media/avatar.png": "/levelup-fitness-app/static/media/avatar.44ea40a3eb8dd7fed2a9.png",
+    "static/media/icon-close.webp": "/levelup-fitness-app/static/media/icon-close.8382398629531b88cec5.webp",
+    "static/media/trash-icon.webp": "/levelup-fitness-app/static/media/trash-icon.4fe61822e9881c21bd54.webp",
+    "index.html": "/levelup-fitness-app/index.html",
+    "main.ad8cabf7.css.map": "/levelup-fitness-app/static/css/main.ad8cabf7.css.map",
+    "main.d6349b0c.js.map": "/levelup-fitness-app/static/js/main.d6349b0c.js.map",
+    "453.3cd29ff3.chunk.js.map": "/levelup-fitness-app/static/js/453.3cd29ff3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ad8cabf7.css",
+    "static/js/main.d6349b0c.js"
+  ]
+}
