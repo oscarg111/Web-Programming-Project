@@ -16,8 +16,9 @@ import logoImage from "../assets/logo.png";
 const Navbar = () => {
   // const { user, logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/auth/user`, {
       headers: {
@@ -36,6 +37,22 @@ const Navbar = () => {
         setUser(data);
       })
       .catch((error) => console.error("Error fetching user data:", error));
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -86,17 +103,16 @@ const Navbar = () => {
           </ul>
         )}
       </nav>
-      <nav className="navbar web-navbar">
+      <nav className={`navbar web-navbar ${isScrolled ? "scrolled" : ""}`}>
         <div className="navbar-logo">
-          <img className="logo-image" src={logoImage} alt="Logo" />
-          <h1 className="Logo">
+          <h1 className="logo">
             <a href="../" activeclassname="active">
               LevelUp Fitness
             </a>
           </h1>
         </div>
-        <ul className="navbar-links">
-          {user ? (
+        <ul className={`navbar-links ${isScrolled ? "scrolled" : ""}`}>
+          {localStorage.getItem("authToken") ? (
             <>
               <li>
                 {" "}
@@ -116,12 +132,7 @@ const Navbar = () => {
                   Feed
                 </NavLink>
               </li>
-              <li>
-                {" "}
-                <NavLink to="/hero-path" activeclassname="active">
-                  Hero Path
-                </NavLink>
-              </li>
+
               <li>
                 {" "}
                 <NavLink to="/leaderboard" activeclassname="active">
@@ -130,16 +141,18 @@ const Navbar = () => {
               </li>
             </>
           ) : (
-            <NavLink to="/login" activeclassname="active">
-              Log In
-            </NavLink>
-          )}
-          {!user && (
-            <li>
-              <NavLink to="/signup" activeclassname="active">
-                Sign Up
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/login" activeclassname="active">
+                  Log In
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/signup" activeclassname="active">
+                  Sign Up
+                </NavLink>
+              </li>
+            </>
           )}
         </ul>
       </nav>

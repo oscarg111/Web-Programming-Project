@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-
 import "./PostPopup.css";
 import "./Comments.css";
 import CommentCard from "./CommentCard";
@@ -86,7 +85,9 @@ const Comments = ({ isOpen, onClose, post, username }) => {
   return ReactDOM.createPortal(
     <div className="post-popup">
       <div className="popup-content">
-        <button onClick={onClose}>x</button>
+        <button className="popup-close-button" onClick={onClose}>
+          x
+        </button>
         <div className="add-comment">
           <h4>New Comment</h4>
           <input

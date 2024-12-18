@@ -4,12 +4,17 @@
 
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 1.8rem 5rem 1.8rem 5rem;
-  height: 15vh;
+  position: fixed;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
+  background-color: #fff; /* Adjust background color as needed */
+  transition: all 0.3s ease-in-out;
+  /* padding: 0.3rem 5rem 4rem 0.3rem; */
+
+  height: auto;
   flex-direction: row; /* Ensure items are in a single row */
+  z-index: 10000;
 }
 
 .navbar-logo {
@@ -23,7 +28,7 @@
   margin-right: 1rem; /* Adds spacing between the image and the text */
 }
 
-.Logo a {
+.logo a {
   text-decoration: none;
   color: black;
 }
@@ -31,6 +36,7 @@
 .navbar-links {
   display: flex;
   list-style: none; /* Removes bullets from the list */
+  text-align: center;
 }
 
 .navbar-links li {
@@ -43,6 +49,16 @@
   padding: 0.5rem 1rem; /* Add padding for the pill shape */
   border-radius: 50px; /* Makes the links pill-shaped */
   background-color: #f0f0f0; /* Default background color */
+  color: black; /* Text color */
+  text-decoration: none; /* Remove underline */
+  transition: all 0.3s ease; /* Smooth transition for hover and active states */
+}
+
+.navbar-links.scrolled a {
+  display: inline-block;
+  padding: 0.5rem 1rem; /* Add padding for the pill shape */
+  border-radius: 50px; /* Makes the links pill-shaped */
+  background-color: #efca9d; /* Default background color */
   color: black; /* Text color */
   text-decoration: none; /* Remove underline */
   transition: all 0.3s ease; /* Smooth transition for hover and active states */
@@ -61,4 +77,23 @@ a:hover {
   background-color: #ff8132; /* Highlight active link */
   color: white; /* White text for better contrast */
   font-weight: bold; /* Emphasize active link */
+}
+
+.web-navbar.scrolled {
+  box-shadow: 0 5px 10px rgba(1, 0, 0, 0.2);
+  background-color: #f0f0f0; /* Adjust background color for scrolled state */
+}
+
+.web-navbar {
+  justify-content: center;
+}
+
+@media (max-width: 950px) {
+  .navbar {
+    display: flex;
+    /* background-color: black; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

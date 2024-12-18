@@ -164,7 +164,7 @@ const UpdatePost = ({ isOpen, post, onClose, onUpdate }) => {
   return ReactDOM.createPortal(
     <div className="post-popup">
       <div className="popup-content">
-        <button className="close-btn" onClick={onClose}>
+        <button className="popup-close-button" onClick={onClose}>
           x
         </button>
         <h2>Update Workout</h2>

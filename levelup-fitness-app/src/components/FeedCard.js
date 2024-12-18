@@ -8,6 +8,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import { useNavigate } from "react-router-dom";
 import UpdatePost from "./UpdateWorkout";
 import hulk from "../assets/hulk.png";
+import heroBase from "../assets/hero-base-male.png";
 import Comments from "./Comments";
 
 const FeedCard = ({ post, username }) => {
@@ -39,7 +40,7 @@ const FeedCard = ({ post, username }) => {
       </div>
       <div className="upload-info">
         <div className="character-column">
-          <img className="hero-image" src={hulk} alt="hero image" />
+          <img className="hero-image" src={heroBase} alt="hero image" />
         </div>
         <div className="workout-column">
           <div className="workout-info">

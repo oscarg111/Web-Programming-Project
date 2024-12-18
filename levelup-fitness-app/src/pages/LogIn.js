@@ -1,7 +1,6 @@
 import React from "react";
 import UserLogin from "../components/UserLogin";
 import "./Login.css";
-import LandingNav from "../components/Landing_nav";
 import Navbar from "../components/Navbar";
 
 let LogInPage = () => {

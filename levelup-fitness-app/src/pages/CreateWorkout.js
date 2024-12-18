@@ -25,40 +25,55 @@ const CreateWorkout = () => {
   const [isValid, setIsValid] = useState(false); // Valid selection flag
   const [validSubmission, setValidSubmission] = useState(true);
   const [isListVisible, setIsListVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // get user/hero data
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/auth/user`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    })
-      .then((response) => {
-        console.log(response.status);
-        if (response.status === 500) {
-          throw new Error("Server error");
-        }
-        return response.json();
+    try {
+      fetch(`${process.env.REACT_APP_API_URL}/auth/user`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
       })
-      .then((data) => {
-        setUsername(data.username);
-      })
-      .catch((error) => console.error("Error fetching user data:", error));
+        .then((response) => {
+          console.log(response.status);
+          if (response.status === 500) {
+            throw new Error("Server error");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setUsername(data.username);
+        })
+        .catch((error) => console.error("Error fetching user data:", error))
+        .finally();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   // get workouts data
   useEffect(() => {
-    fetch(
-      "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const names = data
-          .map((item) => item.name)
-          .filter((name) => typeof name === "string"); // Filter out invalid names
-        setExercises(names);
-      })
-      .catch((error) => console.error("Error fetching exercises:", error));
+    try {
+      fetch(
+        "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const names = data
+            .map((item) => item.name)
+            .filter((name) => typeof name === "string"); // Filter out invalid names
+          setExercises(names);
+        })
+        .catch((error) => console.error("Error fetching exercises:", error))
+        .finally();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const debounce = (func, delay) => {
@@ -171,16 +186,45 @@ const CreateWorkout = () => {
     setIsListVisible(false);
   };
 
+  if (loading) {
+    console.log("loading", loading);
+    return (
+      <div className="create-workout-page">
+        <div className="create-workout-container">
+          <div>
+            <p>Loading create workout...</p>
+            <div className="loader"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!localStorage.getItem("authToken")) {
+    console.log("not user");
+    return (
+      <>
+        <Navbar />
+        <div className="create-workout-page">
+          <div className="create-workout-container container">
+            <h1>Login to create workouts</h1>
+            <button onClick={() => navigate("/login")}>Login</button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return username ? (
     <>
       <Navbar />
 
       <div className="create-workout-page">
-        <div className="create-workout-container">
+        <div className="create-workout-container container">
+          <h1 className="page-title">
+            Make a workout for {username ? username : "Loading..."}
+          </h1>
           <div className="create-workout-card">
-            <h1 className="page-title">
-              Make a workout for {username ? username : "Loading..."}
-            </h1>
             <div className="workout-form-container">
               <form onSubmit={handleAddWorkout} className="create-workout-form">
                 <input
@@ -286,16 +330,14 @@ const CreateWorkout = () => {
       </div>
     </>
   ) : (
-    <>
-      <Navbar />
-
-      <div className="create-workout-page">
-        <div className="create-workout-container">
-          <h1>Login to create workouts</h1>
-          <button onClick={() => navigate("/login")}>Login</button>
+    <div className="create-workout-page">
+      <div className="create-workout-container container">
+        <div>
+          <p>Loading create workout...</p>
+          <div className="loader"></div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -30,7 +30,7 @@ const LandingPage = () => {
       slides[slideIndex].style.display = "grid";
 
       // Schedule the next slide
-      timeoutId = setTimeout(showSlides, 5000); // 5 seconds delay
+      timeoutId = setTimeout(showSlides, 4000); // 5 seconds delay
     };
 
     showSlides();

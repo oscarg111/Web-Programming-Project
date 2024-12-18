@@ -7,6 +7,8 @@
   font-size: small;
   border: none;
   background-color: none;
+  margin-top: 10%;
+  height: auto;
 }
 .alr-account {
   text-align: center;
@@ -37,7 +39,8 @@ input {
   height: 50px;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 }
-.password-vis-btn, .password-icon {
+.password-vis-btn,
+.password-icon {
   background: none;
   position: relative;
   margin: 0;
@@ -47,8 +50,15 @@ input {
 .password-icon {
   position: absolute;
 }
-.vis-btn-container{
+.vis-btn-container {
   height: 0.5px;
   position: relative;
   left: 370px;
+}
+
+@media (max-width: 768px) {
+  .signup-card {
+    margin-top: 10px;
+    margin-bottom: 10vh;
+  }
 }

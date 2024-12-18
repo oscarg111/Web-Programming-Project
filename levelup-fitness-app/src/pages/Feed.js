@@ -1,12 +1,9 @@
 // Home.js
 import React, { useContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
 import FeedCard from "../components/FeedCard";
 import { AuthContext } from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Feed.css";
-import smallKnight from "../assets/small knight.png";
 import { useNavigate } from "react-router-dom";
 
 const Feed = ({ userLoggedIn }) => {
@@ -14,13 +11,8 @@ const Feed = ({ userLoggedIn }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [username, setUsername] = useState(null);
   const navigate = useNavigate();
-
-  const togglePopup = () => {
-    setIsPopupOpen(!isPopupOpen);
-  };
 
   // get user/hero data
   useEffect(() => {
@@ -71,7 +63,17 @@ const Feed = ({ userLoggedIn }) => {
     fetchPosts();
   }, []); // Add dependency array to avoid multiple calls
 
-  if (loading) return <p>Loading posts...</p>;
+  if (loading)
+    return (
+      <div className="feed-pg">
+        <div className="feed-container container">
+          <div>
+            <p>Loading posts...</p>
+            <div className="loader"></div>
+          </div>
+        </div>
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return username ? (
@@ -79,7 +81,7 @@ const Feed = ({ userLoggedIn }) => {
       <Navbar />
 
       <div className="feed-pg">
-        <div className="feed-container">
+        <div className="feed-container container">
           <h1 className="page-title">feed for {username}</h1>
           <div className="feed-cards">
             {posts.map((post, index) => (
@@ -93,8 +95,8 @@ const Feed = ({ userLoggedIn }) => {
     <>
       <Navbar />
 
-      <div className="feed-pg">
-        <div className="feed-container">
+      <div className="feed-pg ">
+        <div className="feed-container container">
           <div className="feed-cards">
             <h1>Login to see Feed</h1>
             <button onClick={() => navigate("/login")}>Login</button>

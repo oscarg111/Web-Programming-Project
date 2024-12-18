@@ -1,34 +1,37 @@
 .create-workout-card {
   border: solid;
-  padding: 0px 10px 0px 10px;
+  /* padding: 0px 10px 0px 10px; */
   border-radius: 10px;
   background-color: var(--blue);
-  width: 80rem;
-  height: 50rem;
+  width: 100%;
+  height: 100rem;
   align-items: center;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
   scrollbar-width: none;
+  /* justify-content: center; */
+  /* margin-top: 15vh; */
 }
 .workout-form-container {
   border: solid;
   padding: 0px 10px 0px 10px;
   border-radius: 10px;
   background-color: white;
-  width: 50rem;
-  height: 30rem;
+  width: 100%;
+  height: auto;
   padding-bottom: 2rem;
 }
 .create-workout-container {
-  transform: translateX(150px);
+  /* transform: translateX(150px); */
   width: 80vw;
   margin: 1.5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 15vh;
 }
 .create-workout-form {
   display: flex;
@@ -37,8 +40,9 @@
   align-items: center;
 }
 .create-workout-page {
-  width: 100vw;
+  width: 100%;
   display: flex;
+  justify-content: center;
   height: 100vh;
 }
 
@@ -140,7 +144,7 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 90vw; /* Adjust width to fit smaller screens */
     height: auto; /* Allow height to adjust dynamically */
     padding: 1rem;
-    margin-bottom: 10%;
+    margin-bottom: 15vh;
   }
 
   .workout-form-container {
@@ -155,7 +159,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 
   .create-workout-form {
-    margin-top: 1rem; /* Reduce top margin */
+    padding-top: 1rem; /* Reduce top margin */
     width: 100%; /* Use full width */
   }
 
@@ -192,6 +196,12 @@ input[type="number"]::-webkit-inner-spin-button {
 
   .trash-icon {
     height: 20px; /* Smaller icons for mobile */
+  }
+
+  .page-title {
+    display: flex;
+    position: relative;
+    text-align: center;
   }
 }
 

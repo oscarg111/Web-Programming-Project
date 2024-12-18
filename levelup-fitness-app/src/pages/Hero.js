@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./HeroPg.css";
 import AddHero from "../components/AddHero";
 import WorkoutStats from "../components/WorkoutStats";
+import "../components/PostPopup.css";
 
 const HeroPage = () => {
   const [heroes, setHeroes] = useState([]);
@@ -34,7 +35,8 @@ const HeroPage = () => {
       .then((data) => {
         setUser(data);
         setHeroes(data.heroes);
-        console.log(user);
+        console.log(heroes);
+        console.log("hello");
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, []);
@@ -47,17 +49,30 @@ const HeroPage = () => {
   const openAddHero = () => setAddHeroOpen(true);
   const closeAddHero = () => setAddHeroOpen(false);
 
+  if (!localStorage.getItem("authToken")) {
+    return (
+      <div className="hero-page">
+        <Navbar />
+        <div class="hero-pg-container container">
+          <h2>Login to see heroes</h2>
+          <button onClick={() => navigate("/login")}>Login</button>
+        </div>
+      </div>
+    );
+  }
+
   // let isLoggedIn = false;
   return user ? (
     <div className="hero-page">
       <Navbar />
-      <div class="hero-pg-container">
+      <div class="hero-pg-container container">
         <div className="hero-card">
           <h2 className="page-title">
             Welcome to the Hero Page,{" "}
             {user.username ? user.username : "Loading..."}
           </h2>
-          <div className="hero-container">
+          {/* <p>{user.heroes}</p> */}
+          <div className="hero-buttons-container">
             <button
               className="hero-btns"
               onClick={() => {
@@ -89,7 +104,21 @@ const HeroPage = () => {
             />
           )}
           <button onClick={openAddHero}>Add Hero</button>
-          {addHeroOpen && <AddHero onClose={closeAddHero} id_num={user._id} />}
+
+          {addHeroOpen && (
+            <div className="post-popup">
+              <div className="popup-content">
+                {
+                  <AddHero
+                    onClose={closeAddHero}
+                    id_num={user._id}
+                    totalVolume={user.userStats.totalVolume}
+                    userHeroes={heroes}
+                  />
+                }
+              </div>
+            </div>
+          )}
           <div className="logout-container">
             <button className="logout-btn" onClick={handleLogout}>
               LogOut
@@ -100,10 +129,11 @@ const HeroPage = () => {
     </div>
   ) : (
     <div className="hero-page">
-      <Navbar />
-      <div class="hero-pg-container">
-        <h2>Login to see heroes</h2>
-        <button onClick={() => navigate("/login")}>Login</button>
+      <div class="hero-pg-container container">
+        <div>
+          <p>Loading Hero Page...</p>
+          <div className="loader"></div>
+        </div>
       </div>
     </div>
   );
