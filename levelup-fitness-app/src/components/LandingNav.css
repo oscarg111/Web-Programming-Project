@@ -3,6 +3,7 @@
 }
 
 .navbar {
+  list-style: none;
   display: flex;
   position: fixed;
   justify-content: center;
@@ -15,6 +16,10 @@
   height: auto;
   flex-direction: row; /* Ensure items are in a single row */
   z-index: 10000;
+}
+
+.navbar li {
+  position: relative;
 }
 
 .navbar-logo {
@@ -34,7 +39,7 @@
 }
 
 .navbar-links {
-  display: flex;
+  /* display: flex; */
   list-style: none; /* Removes bullets from the list */
   text-align: center;
 }
@@ -42,6 +47,7 @@
 .navbar-links li {
   display: inline-block;
   margin: 0 1rem; /* Adds spacing between links */
+  align-items: center;
 }
 
 .navbar-links a {
@@ -87,6 +93,55 @@ a:hover {
 .web-navbar {
   justify-content: center;
 }
+
+.arrow {
+  transition: transform 0.3s ease;
+  height: 1px;
+  width: auto;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  /* border: 1px solid #ccc; */
+  padding: 0; /* Initial padding set to 0 */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 0; /* Starts at 0 height */
+  /* width: 100%; */
+  align-items: start;
+  transition: max-height 0.3s ease-in-out; /* Adjust timing */
+  /* opacity: 0; */
+}
+
+.dropdown-menu.show {
+  max-height: 500px; /* Large enough value to accommodate dropdown content */
+  opacity: 1; /* Make it visible */
+}
+
+.dropdown-menu li {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.dropdown-menu li a {
+  text-decoration: none;
+  color: black;
+}
+/* 
+.dropdown-menu li a:hover {
+  background-color: #f0f0f0;
+} */
 
 @media (max-width: 950px) {
   .navbar {

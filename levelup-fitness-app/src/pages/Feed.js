@@ -32,7 +32,10 @@ const Feed = ({ userLoggedIn }) => {
         setUsername(data.username);
         console.log(user);
       })
-      .catch((error) => console.error("Error fetching user data:", error));
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -74,7 +77,7 @@ const Feed = ({ userLoggedIn }) => {
         </div>
       </div>
     );
-  if (error) return <p>Error: {error}</p>;
+  // if (error) return <p>Error: {error}</p>;
 
   return username ? (
     <>
